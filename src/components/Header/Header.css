@@ -1,0 +1,15 @@
+header {
+    background-color: #16ABF8;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 105px;
+}
+
+nav {
+    color: white;
+    font-weight: 700;
+    max-width: 1000px;
+    width: 100%;
+}
