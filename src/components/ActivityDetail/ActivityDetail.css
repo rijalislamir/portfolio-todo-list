@@ -24,6 +24,7 @@
 
 .edit {
     background-image: url(/src/assets/img/edit.svg);
+    cursor: pointer;
     display: block;
     height: 24px;
     width: 24px;

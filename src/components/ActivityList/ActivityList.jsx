@@ -3,21 +3,22 @@ import './ActivityList.css'
 import ActivityEmptyStateSvg from '../../assets/img/activity-empty-state.svg'
 import DeleteModal from '../DeleteModal/DeleteModal'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addActivity, deleteActivity, selectActivity } from '../../features/activity/activitySlice'
 
 const ActivityList = () => {
-    const [activities, setActivities] = useState([])
+    const activities = useSelector((state) => state.activity.all)
+    const dispatch = useDispatch()
+
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [willBeDelete, setWillBeDelete] = useState({})
 
     const addNewActivity = () => {
-        setActivities([{
-            name: 'New Activity ' + activities.length,
-            date: new Date
-        }, ...activities])
+        dispatch(addActivity())
     }
 
-    const deleteActivity = (index) => {
-        setActivities(activities.filter((_, i) => i !== index))
+    const onDeleteActivity = (index) => {
+        dispatch(deleteActivity({ index }))
     }
 
     const closeDeleteModal = () => {
@@ -44,6 +45,7 @@ const ActivityList = () => {
     }
 
     const openDeleteModal = (e, name, index) => {
+        e.stopPropagation()
         e.preventDefault()
         const item = { name, index }
         setShowDeleteModal(true)
@@ -60,8 +62,8 @@ const ActivityList = () => {
             <div className='activities-container'>
                 {activities.length
                     ? activities.map((item, i) => 
-                        <Link to={`/detail/${i}`} key={i}>
-                            <div className='activity'>
+                        <Link to={`/detail/${item.id}`} key={i}>
+                            <div className='activity' onClick={() => dispatch(selectActivity({ index: i, id: item.id, name: item.name }))}>
                                 <div className='activity-name'>{item.name}</div>
                                 <div className='activity-footer'>
                                     <span className='activity-date'>{convertDateToString(item.date)}</span>
@@ -80,7 +82,7 @@ const ActivityList = () => {
                     closeDeleteModal={closeDeleteModal}
                     type={"activity"}
                     activity={willBeDelete}
-                    deleteActivity={deleteActivity}
+                    deleteActivity={onDeleteActivity}
                     />
             </div>
         </main>
