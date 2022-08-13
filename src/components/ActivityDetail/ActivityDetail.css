@@ -1,0 +1,78 @@
+.activity-detail-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.activity-title {
+    display: flex;
+    align-items: center;
+}
+
+.back {
+    background-image: url(/src/assets/img/back.svg);
+    display: block;
+    height: 32px;
+    width: 32px;
+    margin: 0 19px 0 0;
+}
+
+.activity-detail-name {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0 19px 0 0;
+}
+
+.edit {
+    background-image: url(/src/assets/img/edit.svg);
+    display: block;
+    height: 24px;
+    width: 24px;
+}
+
+.item-list-option {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.sort {
+    background-image: url(/src/assets/img/sort.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 40px;
+    color: #888;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    width: 24px;
+    padding: 26px;
+}
+
+.activity-detail-header button {
+    background: #16ABF8;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.plus {
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    background-image: url(/src/assets/img/plus.svg);
+}
+
+.item-list-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+}
+
+.item-list-empty-state img {
+    height: 413px;
+    width: 541px;
+}

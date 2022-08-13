@@ -42,7 +42,7 @@ const DeleteModal = props => {
                         </div>
                         : <div className='snackbar'>
                             <span className='alert'></span>
-                            <p>Activity berhasil dihapus</p>
+                            <p>{type[0].toUpperCase() + type.slice(1)} berhasil dihapus</p>
                         </div> 
                     }
                 </div>

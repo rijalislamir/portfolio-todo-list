@@ -1,14 +1,15 @@
 import React from 'react'
-import Header from './components/Header/Header'
-import Dashboard from './components/Dashboard/Dashboard'
+import { Route, Routes } from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
+import Activity from './pages/Activity'
 import './App.css'
 
 function App() {
 	return (
-		<>
-			<Header/>
-			<Dashboard/>
-		</>
+		<Routes>
+			<Route path="/" element={<Dashboard />} />
+			<Route path="/detail/:id" element={<Activity />} />
+		</Routes>
 	)
 }
 
