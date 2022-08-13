@@ -41,10 +41,30 @@
 
 .cancel {
     cursor: pointer;
+    padding: 13.5px 51px;
 }
 
 .delete {
     background-color: #ED4C5C;
     color: white;
     cursor: pointer;
+    padding: 13.5px 45px;
+}
+
+.snackbar {
+    background-color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    height: 58px;
+    width: 490px;
+    padding: 20px 30px;
+}
+
+.alert {
+    background-image: url(/src/assets/img/information.svg);
+    height: 24px;
+    width: 24px;
 }

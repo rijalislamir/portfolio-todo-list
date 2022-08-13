@@ -1,32 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './DeleteModal.css'
 import CautionIcon from '/src/assets/img/caution.svg'
 
 const DeleteModal = props => {
     const {
         show,
-        onClose,
+        closeDeleteModal,
         type,
         activity,
-        onDelete
+        deleteActivity
     } = props
+
+    const [isDelete, setIsDelete] = useState(false)
+
+    const onDelete = index => {
+        deleteActivity(index)
+        setIsDelete(true)
+    }
+    
+    const onClose = () => {
+        setIsDelete(false)
+        closeDeleteModal()
+    }
 
     return (
         <>
             {show &&
                 <div className='backdrop' onClick={onClose}>
-                    <div className='modal'>
-                        <div className="modal-header">
-                            <img src={CautionIcon} alt="" />
+                    {!isDelete
+                        ? <div className='modal' onClick={e => e.stopPropagation()}>
+                            <div className="modal-header">
+                                <img src={CautionIcon} alt="" />
+                            </div>
+                            <div className="modal-body">
+                                Apakah anda yakin menghapus {type} <br/><b>"{activity.name}"?</b>
+                            </div>
+                            <div className="modal-footer">
+                                <button className='cancel' onClick={onClose}>Batal</button>
+                                <button className='delete' onClick={() => onDelete(activity.index)}>Hapus</button>
+                            </div>
                         </div>
-                        <div className="modal-body">
-                            Apakah anda yakin menghapus {type} <br/><b>"{activity.name}"?</b>
-                        </div>
-                        <div className="modal-footer">
-                            <button className='cancel' onClick={onClose}>Batal</button>
-                            <button className='delete' onClick={() => onDelete(activity.index)}>Hapus</button>
-                        </div>
-                    </div>
+                        : <div className='snackbar'>
+                            <span className='alert'></span>
+                            <p>Activity berhasil dihapus</p>
+                        </div> 
+                    }
                 </div>
             }
         </>

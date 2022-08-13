@@ -51,7 +51,6 @@ const Activities = props => {
                         <div className='activity-footer'>
                             <span className='activity-date'>{convertDateToString(item.date)}</span>
                             <span className='trash' onClick={() => openDeleteModal(item.name, i)}></span>
-                            {/* <span className='trash' onClick={() => deleteActivity(i)}></span> */}
                         </div>
                     </div>
                 )
@@ -62,10 +61,10 @@ const Activities = props => {
 
             <DeleteModal
                 show={showDeleteModal}
-                onClose={closeDeleteModal}
+                closeDeleteModal={closeDeleteModal}
                 type={"activity"}
                 activity={willBeDelete}
-                onDelete={deleteActivity}
+                deleteActivity={deleteActivity}
             />
         </div>
     )
