@@ -7,7 +7,6 @@ const Dashboard = () => {
     const [activities, setActivities] = useState([])
 
     const addNewActivity = () => {
-        console.log(activities)
         setActivities([{
             name: 'New Activity ' + activities.length,
             date: new Date
