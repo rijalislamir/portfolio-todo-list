@@ -4,24 +4,23 @@ main {
     justify-content: flex-start;
     margin: 0 auto;
     max-width: 1000px;
-    padding: 0 12px;
-    height: calc(100vh - 105px);
-    padding: 43px 0 0 0;
+    min-height: calc(100vh - 105px);
+    padding: 43px 0 150px 0;
     gap: 50px;
 }
 
-.activity {
+.activity-header {
     align-items: center;
     display: flex;
     justify-content: space-between;
 }
 
-.activity span {
+.activity-header span {
     font-size: 2.25rem;
     font-weight: 700;
 }
 
-.activity button {
+.activity-header button {
     background: #16ABF8;
     color: white;
     display: flex;
@@ -30,7 +29,7 @@ main {
     gap: 10px;
 }
 
-.activity .plus {
+.activity-header .plus {
     display: inline-block;
     position: relative;
     height: 24px;
@@ -38,27 +37,7 @@ main {
     background-image: url(/src/assets/img/plus.svg);
 }
 
-/* .activity .plus::after {
-    content: "";
-    display: block;
-    position: absolute;
-    height: 24px;
-    width: 2px;
-    background-color: white;
-    left: 45%;
-}
-
-.activity .plus::before {
-    content: "";
-    display: block;
-    position: absolute;
-    height: 2px;
-    width: 24px;
-    background-color: white;
-    top: 45%;
-} */
-
-.activity button:hover {
+.activity-header button:hover {
     cursor: pointer;
 }
 

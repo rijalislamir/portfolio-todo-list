@@ -1,18 +1,31 @@
-import React from 'react'
-import ActivityEmptyStateSvg from '../../assets/img/activity-empty-state.svg'
+import React, { useState } from 'react'
 import './Dashboard.css'
 
+import Activities from '../Activities/Activities'
+
 const Dashboard = () => {
+    const [activities, setActivities] = useState([])
+
+    const addNewActivity = () => {
+        console.log(activities)
+        setActivities([{
+            name: 'New Activity ' + activities.length,
+            date: new Date
+        }, ...activities])
+    }
+
+    const deleteActivity = (index) => {
+        setActivities(activities.filter((_, i) => i !== index))
+    }
+
     return (
         <main>
-            <div className='activity'>
+            <div className='activity-header'>
                 <span>Activity</span>
-                <button><span className='plus'></span> Tambah</button>
+                <button onClick={addNewActivity}><span className='plus'></span> Tambah</button>
             </div>
 
-            <div className='activity-empty-state'>
-                <img src={ActivityEmptyStateSvg} alt="Activity Empty" />
-            </div>
+            <Activities activities={activities} addNewActivity={addNewActivity} deleteActivity={deleteActivity} />
         </main>
     )
 }

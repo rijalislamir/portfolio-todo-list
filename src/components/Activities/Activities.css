@@ -1,0 +1,45 @@
+.activities-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    row-gap: 26px;
+    column-gap: 20px;
+}
+
+.activity {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 235px;
+    width: 235px;
+    padding: 25px;
+}
+
+.activity-name {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.activity-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.activity-date {
+    color: #888888;
+    cursor: text;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.trash {
+    background-image: url(/src/assets/img/trash.svg);
+    display: block;
+    height: 24px;
+    width: 24px;
+}
