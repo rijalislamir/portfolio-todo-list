@@ -137,7 +137,7 @@ const ActivityDetail = () => {
                 <div className='item-list-option'>
                     {itemList.length !== 0 && <span data-cy='todo-sort-button' ref={sortButtonRef} className='sort' onClick={openSortOptions}></span>}
                     {showSortOption &&
-                        <div data-cy='sort-parent' className='sort-options' ref={sortOptionsRef}>
+                        <div data-cy='sort-selection' className='sort-options' ref={sortOptionsRef}>
                             <div data-cy='sort-latest' className="sort-option" onClick={() => setSortType('latest')}>
                                 <div>
                                     <span className="latest"></span>
@@ -145,7 +145,7 @@ const ActivityDetail = () => {
                                 </div>
                                 {sortType === 'latest' && <span className='check'></span>}
                             </div>
-                            <div data-cy='sort-selection' className="sort-option" onClick={() => setSortType('oldest')}>
+                            <div data-cy='sort-oldest' className="sort-option" onClick={() => setSortType('oldest')}>
                                 <div>
                                     <span className="oldest"></span>
                                     <span>Terlama</span>
