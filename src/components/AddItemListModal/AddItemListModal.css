@@ -1,11 +1,11 @@
 
-.modal {
+.item-list-modal {
     background-color: white;
     height: 403px;
     width: 830px;
 }
 
-.modal-header {
+.item-list-modal .modal-header {
     border-bottom: 1px solid #E5E5E5;
     display: flex;
     font-size: 18px;
@@ -24,7 +24,7 @@
     width: 24px;
 }
 
-.modal-body {
+.item-list-modal .modal-body {
     display: flex;
     flex-direction: column;
     padding: 38px 41px 23px 30px;
@@ -138,7 +138,7 @@
     border-radius: 0 0 6px 6px;
 }
 
-.modal-footer {
+.item-list-modal .modal-footer {
     border-top: 1px solid #E5E5E5;
     display: flex;
     justify-content: flex-end;

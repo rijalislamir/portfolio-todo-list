@@ -27,7 +27,7 @@ const AddItemListModal = props => {
         <>
             {show &&
              <div className="backdrop" onClick={handleClose}>
-                <div className="modal" onClick={e => e.stopPropagation()}>
+                <div className="modal item-list-modal" onClick={e => e.stopPropagation()}>
                     <div className="modal-header">
                         <span>Tambah List Item</span>
                         <span className='exit' onClick={handleClose}></span>

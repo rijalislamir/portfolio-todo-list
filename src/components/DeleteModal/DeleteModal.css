@@ -1,9 +1,9 @@
-.modal {
+.activity-modal {
     height: 355px;
     width: 490px;
 }
 
-.modal-header {
+.activity-modal .modal-header {
     padding: 50.39px 0 0 0;
 }
 

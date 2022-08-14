@@ -28,7 +28,7 @@ const DeleteModal = props => {
             {show &&
                 <div className='backdrop' onClick={onClose}>
                     {!isDelete
-                        ? <div className='modal' onClick={e => e.stopPropagation()}>
+                        ? <div className='modal activity-modal' onClick={e => e.stopPropagation()}>
                             <div className="modal-header">
                                 <img src={CautionIcon} alt="" />
                             </div>
