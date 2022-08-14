@@ -23,16 +23,26 @@ const ActivityDetail = () => {
 
     const [edit, setEdit] = useState(false)
     const inputRef = useRef(null)
+    const sortButtonRef = useRef(null)
+    const sortOptionsRef = useRef(null)
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutsideInput, true)
+        document.addEventListener('click', handleClickOutsideSortButton, true)
         
-        return () => document.removeEventListener('click', handleClickOutsideInput, true)
+        return () => {
+            document.removeEventListener('click', handleClickOutsideInput, true)
+            document.removeEventListener('click', handleClickOutsideSortButton, true)
+        }
     }, [])
 
     const handleClickOutsideInput = e => {
-        if (inputRef.current !== null && !inputRef.current.contains(e.target)) {
-            toggleEdit()
+        if (inputRef.current !== null && !inputRef.current.contains(e.target)) toggleEdit()
+    }
+
+    const handleClickOutsideSortButton = e => {
+        if (sortButtonRef.current !== null && !sortButtonRef.current.contains(e.target) && sortOptionsRef.current !== null && !sortOptionsRef.current.contains(e.target)) {
+            setShowSortOption(false)
         }
     }
 
@@ -77,6 +87,11 @@ const ActivityDetail = () => {
         setShowEditModal(true)
     }
 
+    const openSortOptions = e => {
+        e.stopPropagation()
+        setShowSortOption(prev => !prev)
+    }
+
     return (
         <main>
             <div className='activity-detail-header'>
@@ -94,9 +109,9 @@ const ActivityDetail = () => {
                 </div>
 
                 <div className='item-list-option'>
-                    {itemList.length !== 0 && <span className='sort' onClick={() => setShowSortOption(prev => !prev)}></span>}
+                    {itemList.length !== 0 && <span ref={sortButtonRef} className='sort' onClick={openSortOptions}></span>}
                     {showSortOption &&
-                        <div className='sort-options'>
+                        <div className='sort-options' ref={sortOptionsRef}>
                             <div className="sort-option" onClick={() => setSortType('latest')}>
                                 <div>
                                     <span className="latest"></span>

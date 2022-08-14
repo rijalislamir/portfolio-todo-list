@@ -28,6 +28,7 @@ const EditItemListModal = props => {
         setEditItemListName(prevName)
         setPriority(prevPriority)
         setPriorityIndicator(prevPriorityIndicator)
+        setShowPriorityOptions(false)
         onClose()
     }
 
@@ -49,14 +50,24 @@ const EditItemListModal = props => {
         dispatch(updateItemList({ id: itemListId, name: editItemListName, priority, priorityIndicator }))
         onClose()
     }
+    
+    const handleClickModal = e => {
+        e.stopPropagation()
+        setShowPriorityOptions(false)
+    }
+
+    const openPriorityOptions = e => {
+        e.stopPropagation()
+        setShowPriorityOptions(prev => !prev)
+    }
 
     return (
         <>
             {show && 
             <div className='backdrop' onClick={handleClose}>
-                <div className="modal edit-item-list-modal" onClick={e => e.stopPropagation()}>
+                <div className="modal edit-item-list-modal" onClick={handleClickModal}>
                     <div className="modal-header">
-                        <span>Tambah List Item</span>
+                        <span>Edit List Item</span>
                         <span className='exit' onClick={handleClose}></span>
                     </div>
 
@@ -66,7 +77,7 @@ const EditItemListModal = props => {
                         
                         <label htmlFor="">PRIORITY</label>
                         <div className="priority-container">
-                            <div className={showPriorityOptions ? 'priority priority-open' : 'priority'} onClick={() => setShowPriorityOptions(prev => !prev)}>
+                            <div className={showPriorityOptions ? 'priority priority-open' : 'priority'} onClick={openPriorityOptions}>
                                 {showPriorityOptions
                                     ? <><span>Pilih priority</span><span className='chevron-up'></span></>
                                     : <>
