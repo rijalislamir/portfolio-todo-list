@@ -30,9 +30,9 @@ const DeleteModal = props => {
     return (
         <>
             {show &&
-                <div data-cy='activity-item-delete-button' className='backdrop' onClick={onClose}>
+                <div className='backdrop' onClick={onClose}>
                     {!isDelete
-                        ? <div className='modal activity-modal' onClick={e => e.stopPropagation()}>
+                        ? <div data-cy='modal-delete' className='modal activity-modal' onClick={e => e.stopPropagation()}>
                             <div className="modal-header">
                                 <img src={CautionIcon} alt="" />
                             </div>
@@ -41,12 +41,12 @@ const DeleteModal = props => {
                             </div>
                             <div className="modal-footer">
                                 <button data-cy='modal-delete-cancel-button' className='cancel' onClick={onClose}>Batal</button>
-                                <button className='delete' onClick={() => onDelete(id)} data-cy='activity-item-delete-button modal-delete-confirm-button'>Hapus</button>
+                                <button data-cy='modal-delete-confirm-button' className='delete' onClick={() => onDelete(id)}>Hapus</button>
                             </div>
                         </div>
-                        : <div className='snackbar' data-cy='modal-information'>
+                        : <div className='snackbar'>
                             <span className='alert'></span>
-                            <p>{type[0].toUpperCase() + type.slice(1)} berhasil dihapus</p>
+                            <p data-cy='modal-information'>{type[0].toUpperCase() + type.slice(1)} berhasil dihapus</p>
                         </div> 
                     }
                 </div>

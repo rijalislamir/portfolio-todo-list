@@ -61,8 +61,8 @@ const ActivityList = () => {
     return (
         <main>
             <div className='activity-header'>
-                <span>Activity</span>
-                <button onClick={addNewActivity} data-cy='activity-add-button'><span className='plus'></span> Tambah</button>
+                <span data-cy='activity-title'>Activity</span>
+                <button data-cy='activity-add-button' onClick={addNewActivity}><span className='plus'></span> Tambah</button>
             </div>
 
             <div className='activities-container' data-cy='activity-item'>
@@ -70,9 +70,9 @@ const ActivityList = () => {
                     ? activities.map((item, i) => 
                         <Link to={`/detail/${item.id}`} key={i}>
                             <div className='activity' onClick={() => dispatch(getActivity({ activityId: item.id }))}>
-                                <div className='activity-name' data-cy='activity-title'>{item.title}</div>
+                                <div className='activity-name' data-cy='activity-item-title'>{item.title}</div>
                                 <div className='activity-footer'>
-                                    <span className='activity-date' data-cy='activity-item-date'>{convertDateToString(item.created_at)}</span>
+                                    <span data-cy='activity-item-date' className='activity-date'>{convertDateToString(item.created_at)}</span>
                                     <span data-cy='activity-item-delete-button' className='trash' onClick={e => openDeleteModal(e, item.title, item.id)}></span>
                                 </div>
                             </div>

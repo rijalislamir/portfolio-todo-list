@@ -79,7 +79,7 @@ const AddItemListModal = props => {
                         
                         <label>PRIORITY</label>
                         <div className="priority-container">
-                            <div className={showPriorityOptions ? 'priority priority-open' : 'priority'} onClick={openPriorityOptions}>
+                            <div data-cy='modal-add-priority-dropdown' className={showPriorityOptions ? 'priority priority-open' : 'priority'} onClick={openPriorityOptions}>
                                 {showPriorityOptions
                                     ? <><span>Pilih priority</span><span className='chevron-up'></span></>
                                     : <>
