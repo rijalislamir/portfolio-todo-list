@@ -93,10 +93,7 @@ const ActivityDetail = () => {
             if (a.title < b.title) return 1
             return 0
         }
-        if (sortType === 'not-done') {
-            if (a.is_active && !b.is_active) return 1
-            if (!a.is_active && b.is_active) return -1
-        }
+        return 1
     }
 
     const openEditModal = (id, title, priority) => {
@@ -111,6 +108,14 @@ const ActivityDetail = () => {
 
     const handleCloseDeleteModal = () => {
         setShowDeleteModal(false)
+    }
+
+    const unfinished = item => {
+        if (sortType === 'not-done') {
+            if (!item.is_active) return item
+        } else {
+            return item
+        }
     }
 
     return (
@@ -176,7 +181,7 @@ const ActivityDetail = () => {
 
             <div className='item-list-container'>
                 {itemList.length
-                    ? itemList.sort(comparator).map((item, i) => <div data-cy={`todo-item-${i}`} key={i} className='item-list'>
+                    ? itemList.sort(comparator).filter(unfinished).map((item, i) => <div data-cy='todo-item' key={i} className='item-list'>
                         <div className='item-list-edit'>
                             <input data-cy='todo-item-checkbox' type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: !item.is_active }))}/>
                             <span data-cy='todo-item-priority-indicator' className={'priority-indicator ' + item.priority}></span>
