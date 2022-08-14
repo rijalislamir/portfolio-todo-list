@@ -34,9 +34,9 @@ const DeleteModal = props => {
                     {!isDelete
                         ? <div data-cy='modal-delete' className='modal activity-modal' onClick={e => e.stopPropagation()}>
                             <div className="modal-header">
-                                <img src={CautionIcon} alt="" />
+                                <img data-cy='modal-delete-icon' src={CautionIcon} alt="Caution Icon" />
                             </div>
-                            <div className="modal-body">
+                            <div data-cy='modal-delete-title' className="modal-body">
                                 Apakah anda yakin menghapus {type} <br/><b>"{name}"?</b>
                             </div>
                             <div className="modal-footer">
@@ -44,9 +44,9 @@ const DeleteModal = props => {
                                 <button data-cy='modal-delete-confirm-button' className='delete' onClick={() => onDelete(id)}>Hapus</button>
                             </div>
                         </div>
-                        : <div className='snackbar'>
-                            <span className='alert'></span>
-                            <p data-cy='modal-information'>{type[0].toUpperCase() + type.slice(1)} berhasil dihapus</p>
+                        : <div data-cy='modal-information' className='snackbar'>
+                            <span data-cy='modal-information-icon' className='alert'></span>
+                            <p data-cy='modal-information-title'>{type[0].toUpperCase() + type.slice(1)} berhasil dihapus</p>
                         </div> 
                     }
                 </div>

@@ -117,14 +117,14 @@ const ActivityDetail = () => {
         <main>
             <div className='activity-detail-header'>
                 <div className='activity-title'>
-                    <Link to="/"><span className='back'></span></Link>
+                    <Link to="/"><span data-cy='todo-back-button' className='back'></span></Link>
                     {editTitle
                         ? <>
-                            <input type="text" value={title} onChange={onChangeTitle} ref={inputRef} />
+                            <input data-cy='todo-title' type="text" value={title} onChange={onChangeTitle} ref={inputRef} />
                         </>
                         : <>
                             <h1 data-cy='todo-title' className='activity-detail-name' onClick={toggleEdit}>{activeActivity !== null ? activeActivity.title : ''}</h1>
-                            <span className='edit' onClick={toggleEdit}></span>
+                            <span data-cy='todo-title-edit-button' className='edit' onClick={toggleEdit}></span>
                         </>
                     }
                 </div>
@@ -176,7 +176,7 @@ const ActivityDetail = () => {
 
             <div className='item-list-container'>
                 {itemList.length
-                    ? itemList.sort(comparator).map((item, i) => <div key={i} className='item-list'>
+                    ? itemList.sort(comparator).map((item, i) => <div data-cy={`todo-item-${i}`} key={i} className='item-list'>
                         <div className='item-list-edit'>
                             <input data-cy='todo-item-checkbox' type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: !item.is_active }))}/>
                             <span data-cy='todo-item-priority-indicator' className={'priority-indicator ' + item.priority}></span>
@@ -185,7 +185,7 @@ const ActivityDetail = () => {
                         </div>
                         <span data-cy='todo-item-delete-button' className="trash" onClick={() => openDeleteModal(item.title, item.id)}></span>
                     </div>)
-                    : <div className='item-list-empty-state'>
+                    : <div data-cy='todo-empty-state' className='item-list-empty-state'>
                         <img src={ItemListEmptyStateSvg} onClick={() => setShowAddModal(true)} alt="Item List Empty" />
                     </div>
                 }

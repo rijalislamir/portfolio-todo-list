@@ -67,19 +67,19 @@ const AddItemListModal = props => {
         <>
             {show &&
             <div className="backdrop" onClick={handleClose}>
-                <div className="modal add-item-list-modal" onClick={handleClickModal}>
+                <div data-cy='modal-add' className="modal add-item-list-modal" onClick={handleClickModal}>
                     <div className="modal-header">
-                        <span>Tambah List Item</span>
-                        <span className='exit' onClick={handleClose}></span>
+                        <span data-cy='modal-add-title'>Tambah List Item</span>
+                        <span  data-cy='modal-add-close-button' className='exit' onClick={handleClose}></span>
                     </div>
 
                     <div className="modal-body">
-                        <label htmlFor="add-item-list-name">NAMA LIST ITEM</label>
+                        <label data-cy='modal-add-name-title' htmlFor="add-item-list-name">NAMA LIST ITEM</label>
                         <input data-cy='modal-add-name-input' type="text" id="add-item-list-name" className="item-list-name" placeholder='Tambahkan nama list item' onChange={handleOnchangeItemListName} autoComplete='off' />
                         
-                        <label>PRIORITY</label>
-                        <div className="priority-container">
-                            <div data-cy='modal-add-priority-dropdown' className={showPriorityOptions ? 'priority priority-open' : 'priority'} onClick={openPriorityOptions}>
+                        <label data-cy='modal-add-priority-title'>PRIORITY</label>
+                        <div data-cy='modal-add-priority-dropdown' className="priority-container">
+                            <div className={showPriorityOptions ? 'priority priority-open' : 'priority'} onClick={openPriorityOptions}>
                                 {showPriorityOptions
                                     ? <><span>Pilih priority</span><span className='chevron-up'></span></>
                                     : <>
@@ -91,35 +91,35 @@ const AddItemListModal = props => {
 
                             {showPriorityOptions &&
                             <div className="priority-options" >
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('very-high')}>
+                                <div data-cy='modal-add-priority-very-high' className="priority-option" onClick={() => handleClickPriorityOption('very-high')}>
                                     <span className='priority-group'>
                                         <span className='priority-indicator very-high'></span>
                                         <span>Very High</span>
                                     </span>
                                     <span className={priority === 'very-high' ? 'check' : ''}></span>
                                 </div>
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('high')}>
+                                <div data-cy='modal-add-priority-high' className="priority-option" onClick={() => handleClickPriorityOption('high')}>
                                     <span className='priority-group'>
                                         <span className='priority-indicator high'></span>
                                         <span>High</span>
                                     </span>
                                     <span className={priority === 'high' ? 'check' : ''}></span>
                                 </div>
-                                <div data-cy='modal-add-priority-dropdown' className="priority-option" onClick={() => handleClickPriorityOption('normal')}>
+                                <div data-cy='modal-add-priority-medium' className="priority-option" onClick={() => handleClickPriorityOption('normal')}>
                                     <span className='priority-group'>    
                                         <span className='priority-indicator normal'></span>
                                         <span>Medium</span>
                                     </span>
                                     <span className={priority === 'normal' ? 'check' : ''}></span>
                                 </div>
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('low')}>
+                                <div data-cy='modal-add-priority-low' className="priority-option" onClick={() => handleClickPriorityOption('low')}>
                                     <span className='priority-group'>    
                                         <span className='priority-indicator low'></span>
                                         <span>Low</span>
                                     </span>
                                     <span className={priority === 'low' ? 'check' : ''}></span>
                                 </div>
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('very-low')}>
+                                <div data-cy='modal-add-priority-very-low' className="priority-option" onClick={() => handleClickPriorityOption('very-low')}>
                                     <span className='priority-group'>
                                         <span className='priority-indicator very-low'></span>
                                         <span>Very low</span>
