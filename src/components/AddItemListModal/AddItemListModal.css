@@ -69,6 +69,12 @@
     padding: 14px 17px;
 }
 
+.selected-priority {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 .priority-open {
     background-color: #E5E5E5;
     border-radius: 6px 6px 0 0;
