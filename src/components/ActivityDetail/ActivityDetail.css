@@ -6,6 +6,7 @@
 .activity-title {
     display: flex;
     align-items: center;
+    gap: 19px;
 }
 
 .back {
@@ -13,13 +14,13 @@
     display: block;
     height: 32px;
     width: 32px;
-    margin: 0 19px 0 0;
+    /* margin: 0 19px 0 0; */
 }
 
 .activity-detail-name {
     font-size: 36px;
     font-weight: 700;
-    margin: 0 19px 0 0;
+    /* margin: 0 19px 0 0; */
 }
 
 .edit {

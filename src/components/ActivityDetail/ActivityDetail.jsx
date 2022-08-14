@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ItemListEmptyStateSvg from '../../assets/img/todo-empty-state.svg'
 import './ActivityDetail.css'
@@ -12,6 +12,19 @@ const ActivityDetail = () => {
     const dispatch = useDispatch()
 
     const [edit, setEdit] = useState(false)
+    const inputRef = useRef(null)
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutsideInput, true)
+        
+        return () => document.removeEventListener('click', handleClickOutsideInput, true)
+    }, [])
+
+    const handleClickOutsideInput = e => {
+        if (inputRef.current !== null && !inputRef.current.contains(e.target)) {
+            toggleEdit()
+        }
+    }
 
     const addNewItemList = () => {
         console.log('Adding new item list...')
@@ -31,10 +44,14 @@ const ActivityDetail = () => {
                 <div className='activity-title'>
                     <Link to="/"><span className='back'></span></Link>
                     {edit
-                        ? <input type="text" value={activeActivity.name} onChange={onChangeForm} />
-                        : <h1 className='activity-detail-name' onClick={toggleEdit}>{activeActivity.name}</h1>
+                        ? <>
+                            <input type="text" value={activeActivity.name} onChange={onChangeForm} ref={inputRef} />
+                        </>
+                        : <>
+                            <h1 className='activity-detail-name' onClick={toggleEdit}>{activeActivity.name}</h1>
+                            <span className='edit' onClick={toggleEdit}></span>
+                        </>
                     }
-                    <span className='edit' onClick={toggleEdit}></span>
                 </div>
 
                 <div className='item-list-option'>
