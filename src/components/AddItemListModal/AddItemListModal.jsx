@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import './AddItemListModal.css'
+import { addItemList } from '../../features/itemList/itemListSlice'
+import { useSelector, useDispatch } from 'react-redux'
 
 const AddItemListModal = props => {
     const {
         show,
-        onClose
+        onClose,
+        activityId,
     } = props
 
+    const dispatch = useDispatch()
+
     const [showPriorityOptions, setShowPriorityOptions] = useState(false)
-    const [listItemName, setListItemName] = useState("")
+    const [itemListName, setItemListName] = useState("")
     const [priority, setPriority] = useState("Very High")
     const [priorityIndicator, setPriorityIndicator] = useState("red")
 
@@ -27,8 +32,15 @@ const AddItemListModal = props => {
         onClose()
     }
 
-    const handleOnchangeListItemName = e => {
-        setListItemName(e.target.value)
+    const handleOnchangeItemListName = e => {
+        setItemListName(e.target.value)
+    }
+
+    const handleClickSaveButton = () => {
+        dispatch(addItemList({ activityId, name: itemListName, priority, priorityIndicator }))
+        setPriority("Very High")
+        setPriorityIndicator("red")
+        onClose()
     }
 
     return (
@@ -42,8 +54,8 @@ const AddItemListModal = props => {
                     </div>
 
                     <div className="modal-body">
-                        <label htmlFor="list-item-name">NAMA LIST ITEM</label>
-                        <input type="text" id="list-item-name" placeholder='Tambahkan nama list item' onChange={handleOnchangeListItemName} autoComplete='off' />
+                        <label htmlFor="item-list-name">NAMA LIST ITEM</label>
+                        <input type="text" id="item-list-name" placeholder='Tambahkan nama list item' onChange={handleOnchangeItemListName} autoComplete='off' />
                         
                         <label>PRIORITY</label>
                         <div className="priority-container">
@@ -70,7 +82,7 @@ const AddItemListModal = props => {
                     </div>
 
                     <div className="modal-footer">
-                        <button className='save' disabled={(listItemName === "") ? true : false}>Simpan</button>
+                        <button className='save' disabled={(itemListName === "") ? true : false} onClick={handleClickSaveButton}>Simpan</button>
                     </div>
                 </div>
              </div>

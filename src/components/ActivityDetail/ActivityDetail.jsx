@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import ItemListEmptyStateSvg from '../../assets/img/todo-empty-state.svg'
 import './ActivityDetail.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { addListItem, deleteListItem } from '../../features/listItem/listItemSlice'
+import { toggleItemListDone } from '../../features/itemList/itemListSlice'
 import { updateActivity } from '../../features/activity/activitySlice'
 import AddItemListModal from '../AddItemListModal/AddItemListModal'
 
 const ActivityDetail = () => {
-    const listItem = useSelector(state => state.listItem.all)
     const activeActivity = useSelector(state => state.activity.active)
+    const itemList = useSelector(state => state.itemList.all).filter(item => item.activityId === activeActivity.id)
     const dispatch = useDispatch()
 
     const [showAddModal, setShowAddModal] = useState(false)
@@ -54,14 +54,22 @@ const ActivityDetail = () => {
                 </div>
 
                 <div className='item-list-option'>
-                    {listItem.length !== 0 && <span className='sort'></span>}
+                    {itemList.length !== 0 && <span className='sort'></span>}
                     <button onClick={() => setShowAddModal(true)}><span className='plus'></span> Tambah</button>
                 </div>
             </div>
 
-            <div className='list-item-container'>
-                {listItem.length
-                    ? null
+            <div className='item-list-container'>
+                {itemList.length
+                    ? itemList.map((item, i) => <div className='item-list'>
+                        <div className='item-list-edit'>
+                            <input type="checkbox" className='done' checked={item.done ? true : false} onClick={() => dispatch(toggleItemListDone({ id: item.id }))}/>
+                            <span className={'priority-indicator ' + item.priorityIndicator}></span>
+                            <h1 className={item.done ? 'line-through' : ''}>{item.name}</h1>
+                            <span className="edit"></span>
+                        </div>
+                        <span className="trash"></span>
+                    </div>)
                     : <div className='item-list-empty-state'>
                         <img src={ItemListEmptyStateSvg} onClick={() => setShowAddModal(true)} alt="Item List Empty" />
                     </div>
@@ -71,6 +79,7 @@ const ActivityDetail = () => {
             <AddItemListModal
                 show={showAddModal}
                 onClose={() => setShowAddModal(false)}
+                activityId={activeActivity.id}
             />
         </main>
     )

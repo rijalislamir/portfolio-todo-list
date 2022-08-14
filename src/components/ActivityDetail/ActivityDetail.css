@@ -79,6 +79,48 @@
     background-image: url(/src/assets/img/plus.svg);
 }
 
+.item-list {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    width: 100%;
+    padding: 28px;
+    margin: 10px 0;
+}
+
+.item-list-edit {
+    display: flex;
+    align-items: center;
+}
+
+.item-list-edit .priority-indicator {
+    height: 9px;
+    width: 9px;
+}
+
+.item-list-edit .done {
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin-right: 22px;
+}
+
+.item-list-edit h1 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 16px;
+}
+
+.item-list-edit .line-through {
+    color: #888888;
+    text-decoration: line-through;
+}
+
 .item-list-empty-state {
     display: flex;
     flex-direction: column;
