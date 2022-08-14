@@ -3,8 +3,8 @@ import './Header.css'
 
 const Header = () => {
     return (
-        <header>
-            <nav>
+        <header data-cy='header'>
+            <nav  data-cy='nav'>
                 <h2>TO DO LIST APP</h2>
             </nav>
         </header>

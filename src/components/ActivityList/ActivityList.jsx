@@ -8,6 +8,7 @@ import { getActivities, getActivity, createActivity, deleteActivity } from '../.
 
 const ActivityList = () => {
     const activities = useSelector((state) => state.activity.activities)
+    const isActivityLoading = useSelector((state) => state.activity.isLoading)
     const dispatch = useDispatch()
 
     const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -59,6 +60,7 @@ const ActivityList = () => {
 
     return (
         <main>
+            {!isActivityLoading && <>
             <div className='activity-header'>
                 <span>Activity</span>
                 <button onClick={addNewActivity}><span className='plus'></span> Tambah</button>
@@ -92,6 +94,7 @@ const ActivityList = () => {
                     deleteFunction={onDeleteActivity}
                     />
             </div>
+            </>}
         </main>
     )
 }
