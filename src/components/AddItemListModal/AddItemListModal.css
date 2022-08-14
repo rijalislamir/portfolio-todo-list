@@ -38,7 +38,7 @@
     margin-bottom: 9px;
 }
 
-.item-list-name {
+#item-list-name {
     border: 1px solid #E5E5E5;
     border-radius: 6px;
     font-size: 16px;
@@ -48,7 +48,7 @@
     width: 100%;
 }
 
-.item-list-name:focus {
+#item-list-name:focus {
     outline: 1px solid #16ABF8;
 }
 

@@ -1,24 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './ActivityList.css'
 import ActivityEmptyStateSvg from '../../assets/img/activity-empty-state.svg'
 import DeleteModal from '../DeleteModal/DeleteModal'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addActivity, deleteActivity, selectActivity } from '../../features/activity/activitySlice'
+import { getActivities, getActivity, createActivity, deleteActivity } from '../../features/activity/activitySlice'
 
 const ActivityList = () => {
-    const activities = useSelector((state) => state.activity.all)
+    const activities = useSelector((state) => state.activity.activities)
     const dispatch = useDispatch()
 
     const [showDeleteModal, setShowDeleteModal] = useState(false)
-    const [willBeDelete, setWillBeDelete] = useState({})
+    const [selectedActivity, setSelectedActivity] = useState({})
 
+    useEffect(() => {
+        dispatch(getActivities())
+    }, [])
+    
     const addNewActivity = () => {
-        dispatch(addActivity())
+        dispatch(createActivity())
     }
-
-    const onDeleteActivity = id => {
-        dispatch(deleteActivity({ id }))
+    
+    const onDeleteActivity = activityId => {
+        dispatch(deleteActivity({ activityId }))
     }
 
     const closeDeleteModal = () => {
@@ -26,6 +30,7 @@ const ActivityList = () => {
     }
 
     const convertDateToString = (date) => {
+        const newDate = new Date(date)
         const months = [
             'Januari',
             'Februari',
@@ -41,15 +46,15 @@ const ActivityList = () => {
             'Desember'
         ]
 
-        return `${date.getDate()} ${months[parseInt(date.getMonth())]} ${date.getFullYear()}`
+        return `${newDate.getDate()} ${months[parseInt(newDate.getMonth())]} ${newDate.getFullYear()}`
     }
 
-    const openDeleteModal = (e, name, id) => {
+    const openDeleteModal = (e, title, id) => {
         e.stopPropagation()
         e.preventDefault()
-        const item = { name, id }
+        const item = { title, id }
         setShowDeleteModal(true)
-        setWillBeDelete(item)
+        setSelectedActivity(item)
     }
 
     return (
@@ -63,11 +68,12 @@ const ActivityList = () => {
                 {activities.length
                     ? activities.map((item, i) => 
                         <Link to={`/detail/${item.id}`} key={i}>
-                            <div className='activity' onClick={() => dispatch(selectActivity({ index: i, id: item.id, name: item.name }))}>
-                                <div className='activity-name'>{item.name}</div>
+                            {/* <div className='activity' onClick={() => dispatch(selectActivity({ index: i, id: item.id, title: item.title }))}> */}
+                            <div className='activity' onClick={() => dispatch(getActivity({ activityId: item.id }))}>
+                                <div className='activity-name'>{item.title}</div>
                                 <div className='activity-footer'>
-                                    <span className='activity-date'>{convertDateToString(item.date)}</span>
-                                    <span className='trash' onClick={e => openDeleteModal(e, item.name, item.id)}></span>
+                                    <span className='activity-date'>{convertDateToString(item.created_at)}</span>
+                                    <span className='trash' onClick={e => openDeleteModal(e, item.title, item.id)}></span>
                                 </div>
                             </div>
                         </Link>
@@ -80,9 +86,9 @@ const ActivityList = () => {
                 <DeleteModal
                     show={showDeleteModal}
                     closeDeleteModal={closeDeleteModal}
-                    id={willBeDelete.id}
+                    id={selectedActivity.id}
                     type={"activity"}
-                    name={willBeDelete.name}
+                    name={selectedActivity.title}
                     deleteFunction={onDeleteActivity}
                     />
             </div>

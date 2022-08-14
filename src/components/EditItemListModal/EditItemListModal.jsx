@@ -8,26 +8,24 @@ const EditItemListModal = props => {
         show,
         onClose,
         itemListId,
-        prevName,
-        prevPriority,
-        prevPriorityIndicator
+        prevTitle,
+        prevPriority
     } = props
 
     const dispatch = useDispatch()
 
     const [showPriorityOptions, setShowPriorityOptions] = useState(false)
     const [editItemListName, setEditItemListName] = useState("")
-    const [priority, setPriority] = useState("Very High")
+    const [priority, setPriority] = useState("very-high")
     const [priorityIndicator, setPriorityIndicator] = useState("red")
-
-    useEffect(() => { setEditItemListName(prevName) }, [prevName])
+    
+    useEffect(() => { setEditItemListName(prevTitle) }, [prevTitle])
     useEffect(() => { setPriority(prevPriority) }, [prevPriority])
-    useEffect(() => { setPriorityIndicator(prevPriorityIndicator) }, [prevPriorityIndicator])
+    useEffect(() => { setPriorityIndicator(prevPriority) }, [prevPriority])
 
     const handleClose = () => {
-        setEditItemListName(prevName)
+        setEditItemListName(prevTitle)
         setPriority(prevPriority)
-        setPriorityIndicator(prevPriorityIndicator)
         setShowPriorityOptions(false)
         onClose()
     }
@@ -37,17 +35,18 @@ const EditItemListModal = props => {
     }
 
     const handleClickPriorityOption = option => {
-        if (option === "Very High") setPriorityIndicator("red")
-        else if (option === "High") setPriorityIndicator("orange")
-        else if (option === "Medium") setPriorityIndicator("green")
-        else if (option === "Low") setPriorityIndicator("blue")
-        else if (option === "Very Low") setPriorityIndicator("purple")
+        // if (option === "Very High") setPriorityIndicator("red")
+        // else if (option === "High") setPriorityIndicator("orange")
+        // else if (option === "Medium") setPriorityIndicator("green")
+        // else if (option === "Low") setPriorityIndicator("blue")
+        // else if (option === "Very Low") setPriorityIndicator("purple")
+        setPriorityIndicator(option)
         setPriority(option)
         setShowPriorityOptions(false)
     }
 
     const handleClickSaveButton = () => {
-        dispatch(updateItemList({ id: itemListId, name: editItemListName, priority, priorityIndicator }))
+        // dispatch(updateItemList({ id: itemListId, name: editItemListName, priority, priorityIndicator }))
         onClose()
     }
     
@@ -59,6 +58,16 @@ const EditItemListModal = props => {
     const openPriorityOptions = e => {
         e.stopPropagation()
         setShowPriorityOptions(prev => !prev)
+    }
+
+    const getPriorityString = code => {
+        const frags = code.split('-')
+
+        for (let i = 0; i < frags.length; i++) {
+            frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+        }
+
+        return frags.join(' ');
     }
 
     return (
@@ -81,7 +90,7 @@ const EditItemListModal = props => {
                                 {showPriorityOptions
                                     ? <><span>Pilih priority</span><span className='chevron-up'></span></>
                                     : <>
-                                        <span className='priority-group'><span className={'priority-indicator ' + priorityIndicator}></span><span>{priority}</span></span>
+                                        <span className='priority-group'><span className={'priority-indicator ' + priority}></span><span>{getPriorityString(priority)}</span></span>
                                         <span className='chevron-down'></span>
                                     </>
                                 }
@@ -89,40 +98,40 @@ const EditItemListModal = props => {
 
                             {showPriorityOptions &&
                             <div className="priority-options" >
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('Very High')}>
+                                <div className="priority-option" onClick={() => handleClickPriorityOption('very-high')}>
                                     <span className='priority-group'>
                                         <span className='priority-indicator red'></span>
                                         <span>Very High</span>
                                     </span>
-                                    <span className={priority === 'Very High' ? 'check' : ''}></span>
+                                    <span className={priority === 'very-high' ? 'check' : ''}></span>
                                 </div>
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('High')}>
+                                <div className="priority-option" onClick={() => handleClickPriorityOption('high')}>
                                     <span className='priority-group'>
                                         <span className='priority-indicator orange'></span>
                                         <span>High</span>
                                     </span>
-                                    <span className={priority === 'High' ? 'check' : ''}></span>
+                                    <span className={priority === 'high' ? 'check' : ''}></span>
                                 </div>
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('Medium')}>
+                                <div className="priority-option" onClick={() => handleClickPriorityOption('medium')}>
                                     <span className='priority-group'>    
                                         <span className='priority-indicator green'></span>
                                         <span>Medium</span>
                                     </span>
-                                    <span className={priority === 'Medium' ? 'check' : ''}></span>
+                                    <span className={priority === 'medium' ? 'check' : ''}></span>
                                 </div>
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('Low')}>
+                                <div className="priority-option" onClick={() => handleClickPriorityOption('low')}>
                                     <span className='priority-group'>    
                                         <span className='priority-indicator blue'></span>
                                         <span>Low</span>
                                     </span>
-                                    <span className={priority === 'Low' ? 'check' : ''}></span>
+                                    <span className={priority === 'low' ? 'check' : ''}></span>
                                 </div>
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('Very Low')}>
+                                <div className="priority-option" onClick={() => handleClickPriorityOption('very-low')}>
                                     <span className='priority-group'>
                                         <span className='priority-indicator purple'></span>
                                         <span>Very Low</span>
                                     </span>
-                                    <span className={priority === 'Very Low' ? 'check' : ''}></span>
+                                    <span className={priority === 'very-low' ? 'check' : ''}></span>
                                 </div>
                             </div>}
                         </div>

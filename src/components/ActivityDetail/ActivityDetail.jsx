@@ -1,18 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import ItemListEmptyStateSvg from '../../assets/img/todo-empty-state.svg'
 import './ActivityDetail.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteItemList, toggleItemListDone } from '../../features/itemList/itemListSlice'
-import { updateActivity } from '../../features/activity/activitySlice'
+import { getActivity, updateActivitiy } from '../../features/activity/activitySlice'
 import AddItemListModal from '../AddItemListModal/AddItemListModal'
 import EditItemListModal from '../EditItemListModal/EditItemListModal'
 import DeleteModal from '../DeleteModal/DeleteModal'
 
 const ActivityDetail = () => {
+    const isActivityLoading = useSelector(state => state.activity.isLoading)
     const activeActivity = useSelector(state => state.activity.active)
-    const itemList = useSelector(state => state.itemList.all).filter(item => item.activityId === activeActivity.id)
+    // const itemList = useSelector(state => state.itemList.all).filter(item => item.activityId === activeActivity.id)
+    const itemList = activeActivity !== null ? activeActivity.todo_items : []
     const dispatch = useDispatch()
+    const location = useLocation()
 
     const [showAddModal, setShowAddModal] = useState(false)
     const [showEditModal, setShowEditModal] = useState(false)
@@ -20,11 +23,20 @@ const ActivityDetail = () => {
     const [showSortOption, setShowSortOption] = useState(false)
     const [selectedItemList, setSelectedItemList] = useState({})
     const [sortType, setSortType] = useState("latest")
+    const [title, setTitle] = useState('')
+    const [editTitle, setEditTitle] = useState(false)
 
-    const [edit, setEdit] = useState(false)
     const inputRef = useRef(null)
     const sortButtonRef = useRef(null)
     const sortOptionsRef = useRef(null)
+
+    useEffect(() => {
+        if (activeActivity !== null) setTitle(activeActivity.title)
+    }, [activeActivity])
+
+    useEffect(() => {
+        if (activeActivity === null) dispatch(getActivity({ activityId: location.pathname.split('/').pop() }))
+    }, [])
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutsideInput, true)
@@ -37,7 +49,13 @@ const ActivityDetail = () => {
     }, [])
 
     const handleClickOutsideInput = e => {
-        if (inputRef.current !== null && !inputRef.current.contains(e.target)) toggleEdit()
+        if (inputRef.current !== null && !inputRef.current.contains(e.target)) {
+            toggleEdit()
+            dispatch(updateActivitiy({ 
+                activityId: location.pathname.split('/').pop(),
+                title: inputRef.current.value
+            }))
+        }
     }
 
     const handleClickOutsideSortButton = e => {
@@ -47,11 +65,11 @@ const ActivityDetail = () => {
     }
 
     const toggleEdit = () => {
-        setEdit(prev => !prev)
+        setEditTitle(prev => !prev)
     }
 
-    const onChangeForm = e => {
-        dispatch(updateActivity({ id: activeActivity.id, name: e.target.value }))
+    const onChangeTitle = e => {
+        setTitle(e.target.value)
     }
 
     const openDeleteModal = (name, id) => {
@@ -82,8 +100,8 @@ const ActivityDetail = () => {
         }
     }
 
-    const openEditModal = (id, name, priority, priorityIndicator) => {
-        setSelectedItemList({ id, name, priority, priorityIndicator })
+    const openEditModal = (id, title, priority) => {
+        setSelectedItemList({ id, title, priority })
         setShowEditModal(true)
     }
 
@@ -94,15 +112,16 @@ const ActivityDetail = () => {
 
     return (
         <main>
+            {!isActivityLoading && <>
             <div className='activity-detail-header'>
                 <div className='activity-title'>
                     <Link to="/"><span className='back'></span></Link>
-                    {edit
+                    {editTitle
                         ? <>
-                            <input type="text" value={activeActivity.name} onChange={onChangeForm} ref={inputRef} />
+                            <input type="text" value={title} onChange={onChangeTitle} ref={inputRef} />
                         </>
                         : <>
-                            <h1 className='activity-detail-name' onClick={toggleEdit}>{activeActivity.name}</h1>
+                            <h1 className='activity-detail-name' onClick={toggleEdit}>{activeActivity.title}</h1>
                             <span className='edit' onClick={toggleEdit}></span>
                         </>
                     }
@@ -155,14 +174,14 @@ const ActivityDetail = () => {
 
             <div className='item-list-container'>
                 {itemList.length
-                    ? itemList.sort(comparator).map((item, i) => <div key={i} className='item-list'>
+                    ? itemList.map((item, i) => <div key={i} className='item-list'>
                         <div className='item-list-edit'>
-                            <input type="checkbox" className='done' checked={item.done ? true : false} onChange={() => dispatch(toggleItemListDone({ id: item.id }))}/>
-                            <span className={'priority-indicator ' + item.priorityIndicator}></span>
-                            <h1 className={item.done ? 'line-through' : ''}>{item.name}</h1>
-                            <span className="edit" onClick={() => openEditModal(item.id, item.name, item.priority, item.priorityIndicator)}></span>
+                            <input type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => dispatch(toggleItemListDone({ id: item.id }))}/>
+                            <span className={'priority-indicator ' + item.priority}></span>
+                            <h1 className={item.is_active ? 'line-through' : ''}>{item.title}</h1>
+                            <span className="edit" onClick={() => openEditModal(item.id, item.title, item.priority)}></span>
                         </div>
-                        <span className="trash" onClick={() => openDeleteModal(item.name, item.id)}></span>
+                        <span className="trash" onClick={() => openDeleteModal(item.title, item.id)}></span>
                     </div>)
                     : <div className='item-list-empty-state'>
                         <img src={ItemListEmptyStateSvg} onClick={() => setShowAddModal(true)} alt="Item List Empty" />
@@ -180,9 +199,8 @@ const ActivityDetail = () => {
                 show={showEditModal}
                 onClose={() => setShowEditModal(false)}
                 itemListId={selectedItemList.id}
-                prevName={selectedItemList.name}
+                prevTitle={selectedItemList.title}
                 prevPriority={selectedItemList.priority}
-                prevPriorityIndicator={selectedItemList.priorityIndicator}
             />
 
             <DeleteModal
@@ -193,6 +211,7 @@ const ActivityDetail = () => {
                 name={selectedItemList.name}
                 deleteFunction={onDeleteItemList}
             />
+            </>}
         </main>
     )
 }

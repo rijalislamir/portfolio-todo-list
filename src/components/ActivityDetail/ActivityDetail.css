@@ -35,6 +35,11 @@
     outline:none;
 }
 
+.activity-title input:disabled {
+    border: 0;
+    color: black;
+}
+
 .edit {
     background-image: url(/src/assets/img/edit.svg);
     cursor: pointer;
@@ -176,6 +181,28 @@
     width: 20px;
     margin-right: 22px;
 }
+
+
+.very-high {
+    background-color: #ED4C5C;
+}
+
+.high {
+    background-color: #F8A541;
+}
+
+.medium {
+    background-color: #00A790;
+}
+
+.low {
+    background-color: #428BC1;
+}
+
+.very-low {
+    background-color: #8942C1;
+}
+
 
 .item-list-edit h1 {
     font-size: 18px;
