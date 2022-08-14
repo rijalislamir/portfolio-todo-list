@@ -83,7 +83,6 @@
     background-color: white;
     border-radius: 12px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -119,6 +118,10 @@
 .item-list-edit .line-through {
     color: #888888;
     text-decoration: line-through;
+}
+
+.item-list .trash {
+    cursor: pointer;
 }
 
 .item-list-empty-state {

@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import ItemListEmptyStateSvg from '../../assets/img/todo-empty-state.svg'
 import './ActivityDetail.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleItemListDone } from '../../features/itemList/itemListSlice'
+import { deleteItemList, toggleItemListDone } from '../../features/itemList/itemListSlice'
 import { updateActivity } from '../../features/activity/activitySlice'
 import AddItemListModal from '../AddItemListModal/AddItemListModal'
+import DeleteModal from '../DeleteModal/DeleteModal'
 
 const ActivityDetail = () => {
     const activeActivity = useSelector(state => state.activity.active)
@@ -13,6 +14,8 @@ const ActivityDetail = () => {
     const dispatch = useDispatch()
 
     const [showAddModal, setShowAddModal] = useState(false)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
+    const [willBeDelete, setWillBeDelete] = useState({})
 
     const [edit, setEdit] = useState(false)
     const inputRef = useRef(null)
@@ -35,6 +38,15 @@ const ActivityDetail = () => {
 
     const onChangeForm = e => {
         dispatch(updateActivity({ id: activeActivity.id, name: e.target.value }))
+    }
+
+    const openDeleteModal = (name, id) => {
+        setShowDeleteModal(true)
+        setWillBeDelete({ name, id })
+    }
+
+    const onDeleteItemList = id => {
+        dispatch(deleteItemList({ id }))
     }
 
     return (
@@ -61,14 +73,14 @@ const ActivityDetail = () => {
 
             <div className='item-list-container'>
                 {itemList.length
-                    ? itemList.map((item, i) => <div className='item-list'>
+                    ? itemList.map((item, i) => <div key={i} className='item-list'>
                         <div className='item-list-edit'>
-                            <input type="checkbox" className='done' checked={item.done ? true : false} onClick={() => dispatch(toggleItemListDone({ id: item.id }))}/>
+                            <input type="checkbox" className='done' checked={item.done ? true : false} onChange={() => dispatch(toggleItemListDone({ id: item.id }))}/>
                             <span className={'priority-indicator ' + item.priorityIndicator}></span>
                             <h1 className={item.done ? 'line-through' : ''}>{item.name}</h1>
                             <span className="edit"></span>
                         </div>
-                        <span className="trash"></span>
+                        <span className="trash" onClick={() => openDeleteModal(item.name, item.id)}></span>
                     </div>)
                     : <div className='item-list-empty-state'>
                         <img src={ItemListEmptyStateSvg} onClick={() => setShowAddModal(true)} alt="Item List Empty" />
@@ -80,6 +92,15 @@ const ActivityDetail = () => {
                 show={showAddModal}
                 onClose={() => setShowAddModal(false)}
                 activityId={activeActivity.id}
+            />
+
+            <DeleteModal
+                show={showDeleteModal}
+                closeDeleteModal={() => setShowDeleteModal(false)}
+                id={willBeDelete.id}
+                type={'list item'}
+                name={willBeDelete.name}
+                deleteFunction={onDeleteItemList}
             />
         </main>
     )

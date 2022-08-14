@@ -13,7 +13,7 @@ export const activitySlice = createSlice({
             state.all = [{ id: +new Date, name: 'New Activity', date: new Date() }, ...state.all]
         },
         deleteActivity: (state, action) => {
-            state.all = state.all.filter((_, i) => i !== action.payload.index)
+            state.all = state.all.filter((activity) => activity.id !== action.payload.id)
         },
         selectActivity: (state, action) => {
             state.active = action.payload

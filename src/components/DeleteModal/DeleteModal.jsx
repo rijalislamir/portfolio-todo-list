@@ -6,15 +6,16 @@ const DeleteModal = props => {
     const {
         show,
         closeDeleteModal,
+        id,
         type,
-        activity,
-        deleteActivity
+        name,
+        deleteFunction
     } = props
 
     const [isDelete, setIsDelete] = useState(false)
 
-    const onDelete = index => {
-        deleteActivity(index)
+    const onDelete = id => {
+        deleteFunction(id)
         setIsDelete(true)
     }
     
@@ -33,11 +34,11 @@ const DeleteModal = props => {
                                 <img src={CautionIcon} alt="" />
                             </div>
                             <div className="modal-body">
-                                Apakah anda yakin menghapus {type} <br/><b>"{activity.name}"?</b>
+                                Apakah anda yakin menghapus {type} <br/><b>"{name}"?</b>
                             </div>
                             <div className="modal-footer">
                                 <button className='cancel' onClick={onClose}>Batal</button>
-                                <button className='delete' onClick={() => onDelete(activity.index)}>Hapus</button>
+                                <button className='delete' onClick={() => onDelete(id)}>Hapus</button>
                             </div>
                         </div>
                         : <div className='snackbar'>

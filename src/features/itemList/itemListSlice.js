@@ -13,7 +13,7 @@ export const itemListSlice = createSlice({
             state.all = [{ id: +new Date, name: action.payload.name, priority: action.payload.priority, priorityIndicator: action.payload.priorityIndicator, activityId: action.payload.activityId, date: new Date(), done: false }, ...state.all]
         },
         deleteItemList: (state, action) => {
-            state.all = state.all.filter((_, i) => i !== action.payload.index)
+            state.all = state.all.filter(item => item.id !== action.payload.id)
         },
         toggleItemListDone: (state, action) => {
             state.all = state.all.map((item, i) => (item.id === action.payload.id) ? {...item, done: !item.done} : item)

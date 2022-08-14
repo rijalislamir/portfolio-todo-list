@@ -17,8 +17,8 @@ const ActivityList = () => {
         dispatch(addActivity())
     }
 
-    const onDeleteActivity = (index) => {
-        dispatch(deleteActivity({ index }))
+    const onDeleteActivity = id => {
+        dispatch(deleteActivity({ id }))
     }
 
     const closeDeleteModal = () => {
@@ -44,10 +44,10 @@ const ActivityList = () => {
         return `${date.getDate()} ${months[parseInt(date.getMonth())]} ${date.getFullYear()}`
     }
 
-    const openDeleteModal = (e, name, index) => {
+    const openDeleteModal = (e, name, id) => {
         e.stopPropagation()
         e.preventDefault()
-        const item = { name, index }
+        const item = { name, id }
         setShowDeleteModal(true)
         setWillBeDelete(item)
     }
@@ -67,7 +67,7 @@ const ActivityList = () => {
                                 <div className='activity-name'>{item.name}</div>
                                 <div className='activity-footer'>
                                     <span className='activity-date'>{convertDateToString(item.date)}</span>
-                                    <span className='trash' onClick={e => openDeleteModal(e, item.name, i)}></span>
+                                    <span className='trash' onClick={e => openDeleteModal(e, item.name, item.id)}></span>
                                 </div>
                             </div>
                         </Link>
@@ -80,9 +80,10 @@ const ActivityList = () => {
                 <DeleteModal
                     show={showDeleteModal}
                     closeDeleteModal={closeDeleteModal}
+                    id={willBeDelete.id}
                     type={"activity"}
-                    activity={willBeDelete}
-                    deleteActivity={onDeleteActivity}
+                    name={willBeDelete.name}
+                    deleteFunction={onDeleteActivity}
                     />
             </div>
         </main>
