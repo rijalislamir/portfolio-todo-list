@@ -60,7 +60,6 @@ const ActivityList = () => {
 
     return (
         <main>
-            {!isActivityLoading && <>
             <div className='activity-header'>
                 <span>Activity</span>
                 <button onClick={addNewActivity}><span className='plus'></span> Tambah</button>
@@ -70,7 +69,6 @@ const ActivityList = () => {
                 {activities.length
                     ? activities.map((item, i) => 
                         <Link to={`/detail/${item.id}`} key={i}>
-                            {/* <div className='activity' onClick={() => dispatch(selectActivity({ index: i, id: item.id, title: item.title }))}> */}
                             <div className='activity' onClick={() => dispatch(getActivity({ activityId: item.id }))}>
                                 <div className='activity-name'>{item.title}</div>
                                 <div className='activity-footer'>
@@ -94,7 +92,6 @@ const ActivityList = () => {
                     deleteFunction={onDeleteActivity}
                     />
             </div>
-            </>}
         </main>
     )
 }

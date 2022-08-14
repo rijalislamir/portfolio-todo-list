@@ -6,7 +6,6 @@ export const getActivities = createAsyncThunk(
     async () => {
         try {
             const response = await axios.get("https://todo.api.devcode.gethired.id/activity-groups?email=yoga%2B1%40skyshi.io")
-            
             return response.data
         } catch (error) {
             console.error(error)
@@ -19,11 +18,7 @@ export const getActivity = createAsyncThunk(
     async (props) => {
         try {
             const { activityId } = props
-
             const response = await axios.get(`https://todo.api.devcode.gethired.id/activity-groups/${activityId}`)
-
-            console.log('getActivity', response)
-            
             return response.data
         } catch (error) {
             console.error(error)
@@ -41,9 +36,7 @@ export const createActivity = createAsyncThunk(
             }
 
             const response = await axios.post(`https://todo.api.devcode.gethired.id/activity-groups`, data)
-            
             thunkAPI.dispatch(getActivities())
-            
             return response.data
         } catch (error) {
             console.error(error)
@@ -56,12 +49,10 @@ export const updateActivitiy = createAsyncThunk(
     async (props, thunkAPI) => {
         try {
             const { activityId, title } = props
-            const data = { title: title }
+            const data = { title }
 
             const response = await axios.patch(`https://todo.api.devcode.gethired.id/activity-groups/${activityId}`, data)
-            
             thunkAPI.dispatch(getActivity({ activityId }))
-            
             return response.data
         } catch (error) {
             console.error(error)
@@ -74,11 +65,8 @@ export const deleteActivity = createAsyncThunk(
     async (props, thunkAPI) => {
         try {
             const { activityId } = props
-            
             const response = await axios.delete(`https://todo.api.devcode.gethired.id/activity-groups/${activityId}`)
-            
             thunkAPI.dispatch(getActivities())
-            
             return response.data
         } catch (error) {
             console.error(error)
@@ -87,11 +75,12 @@ export const deleteActivity = createAsyncThunk(
 )
 
 const initialState = {
-    active: null,
     activities: [],
     isLoading: false,
     isError: false,
-    message: ''
+    message: '',
+    all: [],
+    active: null
 }
 
 export const activitySlice = createSlice({

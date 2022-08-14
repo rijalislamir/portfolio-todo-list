@@ -77,7 +77,7 @@ const ActivityDetail = () => {
     }
 
     const onDeleteItemList = id => {
-        dispatch(deleteItemList({ itemListId: id, activity_group_id: activeActivity.id }))
+        dispatch(deleteItemList({ itemListId: id, activityId: activeActivity.id }))
     }
 
     const comparator = (a, b) => {
@@ -111,12 +111,10 @@ const ActivityDetail = () => {
 
     const handleCloseDeleteModal = () => {
         setShowDeleteModal(false)
-        dispatch(getActivity({ activityId: activeActivity.id }))
     }
 
     return (
         <main>
-            {!isActivityLoading && <>
             <div className='activity-detail-header'>
                 <div className='activity-title'>
                     <Link to="/"><span className='back'></span></Link>
@@ -125,7 +123,7 @@ const ActivityDetail = () => {
                             <input type="text" value={title} onChange={onChangeTitle} ref={inputRef} />
                         </>
                         : <>
-                            <h1 className='activity-detail-name' onClick={toggleEdit}>{activeActivity.title}</h1>
+                            <h1 className='activity-detail-name' onClick={toggleEdit}>{activeActivity !== null ? activeActivity.title : ''}</h1>
                             <span className='edit' onClick={toggleEdit}></span>
                         </>
                     }
@@ -196,7 +194,7 @@ const ActivityDetail = () => {
             <AddItemListModal
                 show={showAddModal}
                 onClose={() => setShowAddModal(false)}
-                activityId={activeActivity.id}
+                activityId={activeActivity !== null ? activeActivity.id : null}
             />
 
             <EditItemListModal 
@@ -215,7 +213,6 @@ const ActivityDetail = () => {
                 name={selectedItemList.title}
                 deleteFunction={onDeleteItemList}
             />
-            </>}
         </main>
     )
 }

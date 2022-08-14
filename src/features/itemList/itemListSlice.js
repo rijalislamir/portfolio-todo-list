@@ -40,10 +40,12 @@ export const deleteItemList = createAsyncThunk(
     'itemList/deleteItemList',
     async (props, thunkAPI) => {
         try {
-            const { itemListId } = props
+            const { itemListId, activityId } = props
             
             const response = await axios.delete(`https://todo.api.devcode.gethired.id/todo-items/${itemListId}`)
             
+            thunkAPI.dispatch(getActivity({ activityId }))
+
             return response.data
         } catch (error) {
             console.error(error)
