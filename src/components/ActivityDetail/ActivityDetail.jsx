@@ -15,7 +15,10 @@ const ActivityDetail = () => {
 
     const [showAddModal, setShowAddModal] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
-    const [willBeDelete, setWillBeDelete] = useState({})
+    const [showSortOption, setShowSortOption] = useState(false)
+    const [selectedItemList, setSelectedItemList] = useState({})
+    const [sortType, setSortType] = useState("latest")
+    const [sortByDone, setSortByDone] = useState(false)
 
     const [edit, setEdit] = useState(false)
     const inputRef = useRef(null)
@@ -42,11 +45,30 @@ const ActivityDetail = () => {
 
     const openDeleteModal = (name, id) => {
         setShowDeleteModal(true)
-        setWillBeDelete({ name, id })
+        setSelectedItemList({ name, id })
     }
 
     const onDeleteItemList = id => {
         dispatch(deleteItemList({ id }))
+    }
+
+    const comparator = (a, b) => {
+        if (sortType === 'latest') return b.id - a.id
+        if (sortType === 'oldest') return a.id - b.id
+        if (sortType === 'a-z') {
+            if (a.name < b.name) return -1
+            if (a.name > b.name) return 1
+            return 0
+        }
+        if (sortType === 'z-a') {
+            if (a.name > b.name) return -1
+            if (a.name < b.name) return 1
+            return 0
+        }
+        if (sortType === 'not-done') {
+            if (a.done && !b.done) return 1
+            if (!a.done && b.done) return -1
+        }
     }
 
     return (
@@ -66,14 +88,53 @@ const ActivityDetail = () => {
                 </div>
 
                 <div className='item-list-option'>
-                    {itemList.length !== 0 && <span className='sort'></span>}
+                    {itemList.length !== 0 && <span className='sort' onClick={() => setShowSortOption(prev => !prev)}></span>}
+                    {showSortOption &&
+                        <div className='sort-options'>
+                            <div className="sort-option" onClick={() => setSortType('latest')}>
+                                <div>
+                                    <span className="latest"></span>
+                                    <span>Terbaru</span>
+                                </div>
+                                {sortType === 'latest' && <span className='check'></span>}
+                            </div>
+                            <div className="sort-option" onClick={() => setSortType('oldest')}>
+                                <div>
+                                    <span className="oldest"></span>
+                                    <span>Terlama</span>
+                                </div>
+                                {sortType === 'oldest' && <span className='check'></span>}
+                            </div>
+                            <div className="sort-option" onClick={() => setSortType('a-z')}>
+                                <div>
+                                    <span className="a-z"></span>
+                                    <span>A-Z</span>
+                                </div>
+                                {sortType === 'a-z' && <span className='check'></span>}
+                            </div>
+                            <div className="sort-option" onClick={() => setSortType('z-a')}>
+                                <div>
+                                    <span className="z-a"></span>
+                                    <span>Z-A</span>
+                                </div>
+                                {sortType === 'z-a' && <span className='check'></span>}
+                            </div>
+                            <div className="sort-option" onClick={() => setSortType('not-done')}>
+                                <div>
+                                    <span className="not-done"></span>
+                                    <span>Belum Selesai</span>
+                                </div>
+                                {sortType === 'not-done' && <span className='check'></span>}
+                            </div>
+                        </div>
+                    }
                     <button onClick={() => setShowAddModal(true)}><span className='plus'></span> Tambah</button>
                 </div>
             </div>
 
             <div className='item-list-container'>
                 {itemList.length
-                    ? itemList.map((item, i) => <div key={i} className='item-list'>
+                    ? itemList.sort(comparator).map((item, i) => <div key={i} className='item-list'>
                         <div className='item-list-edit'>
                             <input type="checkbox" className='done' checked={item.done ? true : false} onChange={() => dispatch(toggleItemListDone({ id: item.id }))}/>
                             <span className={'priority-indicator ' + item.priorityIndicator}></span>
@@ -97,9 +158,9 @@ const ActivityDetail = () => {
             <DeleteModal
                 show={showDeleteModal}
                 closeDeleteModal={() => setShowDeleteModal(false)}
-                id={willBeDelete.id}
+                id={selectedItemList.id}
                 type={'list item'}
-                name={willBeDelete.name}
+                name={selectedItemList.name}
                 deleteFunction={onDeleteItemList}
             />
         </main>

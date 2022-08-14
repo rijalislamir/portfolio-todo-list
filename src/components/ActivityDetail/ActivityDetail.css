@@ -46,6 +46,7 @@
 .item-list-option {
     display: flex;
     align-items: center;
+    position: relative;
     gap: 18px;
 }
 
@@ -61,6 +62,73 @@
     height: 24px;
     width: 24px;
     padding: 26px;
+}
+
+.sort-options {
+    background-color: white;
+    cursor: pointer;
+    width: 235px;
+    position: absolute;
+    top: 70px
+}
+
+.sort-option {
+    border: 1px solid #E5E5E5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 400;
+    height: 52px;
+    padding: 14px 21px;
+}
+
+.sort-option div:first-child {
+    display: flex;
+}
+
+.sort-option:first-child {
+    border-radius: 6px 6px 0 0;
+}
+
+.sort-option:last-child {
+    border-radius: 0 0 6px 6px;
+}
+
+.latest {
+    background-image: url(/src/assets/img/latest.svg);
+    display: block;
+    margin-right: 15px;
+    height: 18px;
+    width: 18px;
+}
+.oldest {
+    background-image: url(/src/assets/img/oldest.svg);
+    display: block;
+    margin-right: 15px;
+    height: 18px;
+    width: 18px;
+}
+.a-z {
+    background-image: url(/src/assets/img/a-z.svg);
+    display: block;
+    margin-right: 15px;
+    height: 18px;
+    width: 18px;
+}
+.z-a {
+    background-image: url(/src/assets/img/z-a.svg);
+    display: block;
+    margin-right: 15px;
+    height: 18px;
+    width: 18px;
+}
+.not-done {
+    background-image: url(/src/assets/img/not-done.svg);
+    display: block;
+    margin-right: 15px;
+    height: 18px;
+    width: 18px;
 }
 
 .activity-detail-header button {
