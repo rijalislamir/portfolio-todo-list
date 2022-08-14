@@ -3,9 +3,9 @@ import './Header.css'
 
 const Header = () => {
     return (
-        <header data-cy='header'>
-            <nav  data-cy='nav'>
-                <h2>TO DO LIST APP</h2>
+        <header>
+            <nav>
+                <h2 data-cy='header-title'>TO DO LIST APP</h2>
             </nav>
         </header>
     )
