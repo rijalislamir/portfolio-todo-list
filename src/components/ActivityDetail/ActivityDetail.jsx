@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 import ItemListEmptyStateSvg from '../../assets/img/todo-empty-state.svg'
 import './ActivityDetail.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteItemList, toggleItemListDone } from '../../features/itemList/itemListSlice'
 import { getActivity, updateActivitiy } from '../../features/activity/activitySlice'
+import { deleteItemList, updateItemList } from '../../features/itemList/itemListSlice'
 import AddItemListModal from '../AddItemListModal/AddItemListModal'
 import EditItemListModal from '../EditItemListModal/EditItemListModal'
 import DeleteModal from '../DeleteModal/DeleteModal'
@@ -12,8 +12,7 @@ import DeleteModal from '../DeleteModal/DeleteModal'
 const ActivityDetail = () => {
     const isActivityLoading = useSelector(state => state.activity.isLoading)
     const activeActivity = useSelector(state => state.activity.active)
-    // const itemList = useSelector(state => state.itemList.all).filter(item => item.activityId === activeActivity.id)
-    const itemList = activeActivity !== null ? activeActivity.todo_items : []
+    const itemList = activeActivity !== null ? [...activeActivity.todo_items] : []
     const dispatch = useDispatch()
     const location = useLocation()
 
@@ -72,31 +71,31 @@ const ActivityDetail = () => {
         setTitle(e.target.value)
     }
 
-    const openDeleteModal = (name, id) => {
+    const openDeleteModal = (title, id) => {
         setShowDeleteModal(true)
-        setSelectedItemList({ name, id })
+        setSelectedItemList({ title, id })
     }
 
     const onDeleteItemList = id => {
-        dispatch(deleteItemList({ id }))
+        dispatch(deleteItemList({ itemListId: id, activity_group_id: activeActivity.id }))
     }
 
     const comparator = (a, b) => {
         if (sortType === 'latest') return b.id - a.id
         if (sortType === 'oldest') return a.id - b.id
         if (sortType === 'a-z') {
-            if (a.name < b.name) return -1
-            if (a.name > b.name) return 1
+            if (a.title < b.title) return -1
+            if (a.title > b.title) return 1
             return 0
         }
         if (sortType === 'z-a') {
-            if (a.name > b.name) return -1
-            if (a.name < b.name) return 1
+            if (a.title > b.title) return -1
+            if (a.title < b.title) return 1
             return 0
         }
         if (sortType === 'not-done') {
-            if (a.done && !b.done) return 1
-            if (!a.done && b.done) return -1
+            if (a.is_active && !b.is_active) return 1
+            if (!a.is_active && b.is_active) return -1
         }
     }
 
@@ -108,6 +107,11 @@ const ActivityDetail = () => {
     const openSortOptions = e => {
         e.stopPropagation()
         setShowSortOption(prev => !prev)
+    }
+
+    const handleCloseDeleteModal = () => {
+        setShowDeleteModal(false)
+        dispatch(getActivity({ activityId: activeActivity.id }))
     }
 
     return (
@@ -174,9 +178,9 @@ const ActivityDetail = () => {
 
             <div className='item-list-container'>
                 {itemList.length
-                    ? itemList.map((item, i) => <div key={i} className='item-list'>
+                    ? itemList.sort(comparator).map((item, i) => <div key={i} className='item-list'>
                         <div className='item-list-edit'>
-                            <input type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => dispatch(toggleItemListDone({ id: item.id }))}/>
+                            <input type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: !item.is_active }))}/>
                             <span className={'priority-indicator ' + item.priority}></span>
                             <h1 className={item.is_active ? 'line-through' : ''}>{item.title}</h1>
                             <span className="edit" onClick={() => openEditModal(item.id, item.title, item.priority)}></span>
@@ -205,10 +209,10 @@ const ActivityDetail = () => {
 
             <DeleteModal
                 show={showDeleteModal}
-                closeDeleteModal={() => setShowDeleteModal(false)}
+                closeDeleteModal={handleCloseDeleteModal}
                 id={selectedItemList.id}
                 type={'list item'}
-                name={selectedItemList.name}
+                name={selectedItemList.title}
                 deleteFunction={onDeleteItemList}
             />
             </>}

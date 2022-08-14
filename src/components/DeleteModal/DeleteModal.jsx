@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './DeleteModal.css'
 import CautionIcon from '/src/assets/img/caution.svg'
+import { useDispatch } from 'react-redux'
 
 const DeleteModal = props => {
     const {
@@ -11,6 +12,8 @@ const DeleteModal = props => {
         name,
         deleteFunction
     } = props
+
+    const dispatch = useDispatch()
 
     const [isDelete, setIsDelete] = useState(false)
 

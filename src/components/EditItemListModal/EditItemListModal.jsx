@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './EditItemListModal.css'
-import { useDispatch } from 'react-redux/es/exports'
+import { useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { updateItemList } from '../../features/itemList/itemListSlice'
 
 const EditItemListModal = props => {
@@ -13,11 +14,12 @@ const EditItemListModal = props => {
     } = props
 
     const dispatch = useDispatch()
+    const location = useLocation()
 
     const [showPriorityOptions, setShowPriorityOptions] = useState(false)
     const [editItemListName, setEditItemListName] = useState("")
     const [priority, setPriority] = useState("very-high")
-    const [priorityIndicator, setPriorityIndicator] = useState("red")
+    const [priorityIndicator, setPriorityIndicator] = useState("very-high")
     
     useEffect(() => { setEditItemListName(prevTitle) }, [prevTitle])
     useEffect(() => { setPriority(prevPriority) }, [prevPriority])
@@ -46,7 +48,12 @@ const EditItemListModal = props => {
     }
 
     const handleClickSaveButton = () => {
-        // dispatch(updateItemList({ id: itemListId, name: editItemListName, priority, priorityIndicator }))
+        dispatch(updateItemList({ 
+            activityId: location.pathname.split('/').pop(),
+            itemListId, 
+            title: editItemListName,
+            priority
+        }))
         onClose()
     }
     
@@ -64,15 +71,15 @@ const EditItemListModal = props => {
         const frags = code.split('-')
 
         for (let i = 0; i < frags.length; i++) {
-            frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+            frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1)
         }
 
-        return frags.join(' ');
+        return frags.join(' ')
     }
 
     return (
         <>
-            {show && 
+            {show && priority && 
             <div className='backdrop' onClick={handleClose}>
                 <div className="modal edit-item-list-modal" onClick={handleClickModal}>
                     <div className="modal-header">
