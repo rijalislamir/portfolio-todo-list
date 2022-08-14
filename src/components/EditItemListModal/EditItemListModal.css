@@ -1,0 +1,51 @@
+.edit-item-list-modal {
+    background-color: white;
+    height: 403px;
+    width: 830px;
+}
+
+.edit-item-list-modal .modal-header {
+    border-bottom: 1px solid #E5E5E5;
+    display: flex;
+    font-size: 18px;
+    font-weight: 600;
+    justify-content: space-between;
+    padding: 24px 30px 19px 30px;
+    width: 100%;
+}
+
+.edit-item-list-modal .modal-body {
+    display: flex;
+    flex-direction: column;
+    padding: 38px 41px 23px 30px;
+    text-align: left;
+    width: 100%;
+}
+
+.modal-body label {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+.item-list-name {
+    border: 1px solid #E5E5E5;
+    border-radius: 6px;
+    font-size: 16px;
+    height: 52px;
+    margin-bottom: 30px;
+    padding: 14px 18px;
+    width: 100%;
+}
+
+.item-list-name:focus {
+    outline: 1px solid #16ABF8;
+}
+
+.edit-item-list-modal .modal-footer {
+    border-top: 1px solid #E5E5E5;
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 41px 19px 41px;
+    width: 100%;
+}

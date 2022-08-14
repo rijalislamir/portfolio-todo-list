@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteItemList, toggleItemListDone } from '../../features/itemList/itemListSlice'
 import { updateActivity } from '../../features/activity/activitySlice'
 import AddItemListModal from '../AddItemListModal/AddItemListModal'
+import EditItemListModal from '../EditItemListModal/EditItemListModal'
 import DeleteModal from '../DeleteModal/DeleteModal'
 
 const ActivityDetail = () => {
@@ -14,11 +15,11 @@ const ActivityDetail = () => {
     const dispatch = useDispatch()
 
     const [showAddModal, setShowAddModal] = useState(false)
+    const [showEditModal, setShowEditModal] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showSortOption, setShowSortOption] = useState(false)
     const [selectedItemList, setSelectedItemList] = useState({})
     const [sortType, setSortType] = useState("latest")
-    const [sortByDone, setSortByDone] = useState(false)
 
     const [edit, setEdit] = useState(false)
     const inputRef = useRef(null)
@@ -69,6 +70,11 @@ const ActivityDetail = () => {
             if (a.done && !b.done) return 1
             if (!a.done && b.done) return -1
         }
+    }
+
+    const openEditModal = (id, name, priority, priorityIndicator) => {
+        setSelectedItemList({ id, name, priority, priorityIndicator })
+        setShowEditModal(true)
     }
 
     return (
@@ -139,7 +145,7 @@ const ActivityDetail = () => {
                             <input type="checkbox" className='done' checked={item.done ? true : false} onChange={() => dispatch(toggleItemListDone({ id: item.id }))}/>
                             <span className={'priority-indicator ' + item.priorityIndicator}></span>
                             <h1 className={item.done ? 'line-through' : ''}>{item.name}</h1>
-                            <span className="edit"></span>
+                            <span className="edit" onClick={() => openEditModal(item.id, item.name, item.priority, item.priorityIndicator)}></span>
                         </div>
                         <span className="trash" onClick={() => openDeleteModal(item.name, item.id)}></span>
                     </div>)
@@ -153,6 +159,15 @@ const ActivityDetail = () => {
                 show={showAddModal}
                 onClose={() => setShowAddModal(false)}
                 activityId={activeActivity.id}
+            />
+
+            <EditItemListModal 
+                show={showEditModal}
+                onClose={() => setShowEditModal(false)}
+                itemListId={selectedItemList.id}
+                prevName={selectedItemList.name}
+                prevPriority={selectedItemList.priority}
+                prevPriorityIndicator={selectedItemList.priorityIndicator}
             />
 
             <DeleteModal

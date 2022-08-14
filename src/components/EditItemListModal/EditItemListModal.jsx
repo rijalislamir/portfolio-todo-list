@@ -1,21 +1,39 @@
-import React, { useState } from 'react'
-import './AddItemListModal.css'
-import { addItemList } from '../../features/itemList/itemListSlice'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import './EditItemListModal.css'
+import { useDispatch } from 'react-redux/es/exports'
+import { updateItemList } from '../../features/itemList/itemListSlice'
 
-const AddItemListModal = props => {
+const EditItemListModal = props => {
     const {
         show,
         onClose,
-        activityId,
+        itemListId,
+        prevName,
+        prevPriority,
+        prevPriorityIndicator
     } = props
 
     const dispatch = useDispatch()
 
     const [showPriorityOptions, setShowPriorityOptions] = useState(false)
-    const [itemListName, setItemListName] = useState("")
+    const [editItemListName, setEditItemListName] = useState("")
     const [priority, setPriority] = useState("Very High")
     const [priorityIndicator, setPriorityIndicator] = useState("red")
+
+    useEffect(() => { setEditItemListName(prevName) }, [prevName])
+    useEffect(() => { setPriority(prevPriority) }, [prevPriority])
+    useEffect(() => { setPriorityIndicator(prevPriorityIndicator) }, [prevPriorityIndicator])
+
+    const handleClose = () => {
+        setEditItemListName(prevName)
+        setPriority(prevPriority)
+        setPriorityIndicator(prevPriorityIndicator)
+        onClose()
+    }
+
+    const handleOnchange = e => {
+        setEditItemListName(e.target.value)
+    }
 
     const handleClickPriorityOption = option => {
         if (option === "Very High") setPriorityIndicator("red")
@@ -27,39 +45,26 @@ const AddItemListModal = props => {
         setShowPriorityOptions(false)
     }
 
-    const handleClose = () => {
-        setShowPriorityOptions(false)
-        setPriority("Very High")
-        setPriorityIndicator("red")
-        onClose()
-    }
-
-    const handleOnchangeItemListName = e => {
-        setItemListName(e.target.value)
-    }
-
     const handleClickSaveButton = () => {
-        dispatch(addItemList({ activityId, name: itemListName, priority, priorityIndicator }))
-        setPriority("Very High")
-        setPriorityIndicator("red")
+        dispatch(updateItemList({ id: itemListId, name: editItemListName, priority, priorityIndicator }))
         onClose()
     }
 
     return (
         <>
-            {show &&
-            <div className="backdrop" onClick={handleClose}>
-                <div className="modal add-item-list-modal" onClick={e => e.stopPropagation()}>
+            {show && 
+            <div className='backdrop' onClick={handleClose}>
+                <div className="modal edit-item-list-modal" onClick={e => e.stopPropagation()}>
                     <div className="modal-header">
                         <span>Tambah List Item</span>
                         <span className='exit' onClick={handleClose}></span>
                     </div>
 
                     <div className="modal-body">
-                        <label htmlFor="add-item-list-name">NAMA LIST ITEM</label>
-                        <input type="text" id="add-item-list-name" className="item-list-name" placeholder='Tambahkan nama list item' onChange={handleOnchangeItemListName} autoComplete='off' />
+                        <label htmlFor="edit-item-list-name">NAMA LIST ITEM</label>
+                        <input type="text" id="edit-item-list-name" className="item-list-name" value={editItemListName || ''} onChange={handleOnchange} placeholder='Tambahkan nama list item' autoComplete='off' />
                         
-                        <label>PRIORITY</label>
+                        <label htmlFor="">PRIORITY</label>
                         <div className="priority-container">
                             <div className={showPriorityOptions ? 'priority priority-open' : 'priority'} onClick={() => setShowPriorityOptions(prev => !prev)}>
                                 {showPriorityOptions
@@ -111,9 +116,9 @@ const AddItemListModal = props => {
                             </div>}
                         </div>
                     </div>
-
+                    
                     <div className="modal-footer">
-                        <button className='save' disabled={(itemListName === "") ? true : false} onClick={handleClickSaveButton}>Simpan</button>
+                        <button className='save' disabled={(editItemListName === "") ? true : false} onClick={handleClickSaveButton}>Simpan</button>
                     </div>
                 </div>
             </div>
@@ -122,4 +127,4 @@ const AddItemListModal = props => {
     )
 }
 
-export default AddItemListModal
+export default EditItemListModal
