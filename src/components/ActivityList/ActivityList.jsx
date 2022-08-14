@@ -68,15 +68,17 @@ const ActivityList = () => {
             <div data-cy='activity-item' className='activities-container'>
                 {activities.length
                     ? activities.map((item, i) => 
-                        <Link to={`/detail/${item.id}`} key={i}>
-                            <div data-cy={`activity-item-${i}`} className='activity' onClick={() => dispatch(getActivity({ activityId: item.id }))}>
-                                <div className='activity-name' data-cy='activity-item-title'>{item.title}</div>
-                                <div className='activity-footer'>
-                                    <span data-cy='activity-item-date' className='activity-date'>{convertDateToString(item.created_at)}</span>
-                                    <span data-cy='activity-item-delete-button' className='trash' onClick={e => openDeleteModal(e, item.title, item.id)}></span>
+                        <div data-cy={`activity-item-${i}`}>
+                            <Link to={`/detail/${item.id}`} key={i}>
+                                <div className='activity' onClick={() => dispatch(getActivity({ activityId: item.id }))}>
+                                    <div className='activity-name' data-cy='activity-item-title'>{item.title}</div>
+                                    <div className='activity-footer'>
+                                        <span data-cy='activity-item-date' className='activity-date'>{convertDateToString(item.created_at)}</span>
+                                        <span data-cy='activity-item-delete-button' className='trash' onClick={e => openDeleteModal(e, item.title, item.id)}></span>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
+                            </Link>
+                        </div>
                     )
                     : <div data-cy='activity-empty-state' className='activity-empty-state'>
                         <img src={ActivityEmptyStateSvg} onClick={addNewActivity} alt="Activity Empty" />
