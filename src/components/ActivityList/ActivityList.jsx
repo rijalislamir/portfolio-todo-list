@@ -65,20 +65,18 @@ const ActivityList = () => {
                 <button data-cy='activity-add-button' onClick={addNewActivity}><span className='plus'></span> Tambah</button>
             </div>
 
-            <div data-cy='activity-item' className='activities-container'>
+            <div className='activities-container'>
                 {activities.length
                     ? activities.map((item, i) => 
-                        <div data-cy={`activity-item-${i}`}>
-                            <Link to={`/detail/${item.id}`} key={i}>
-                                <div className='activity' onClick={() => dispatch(getActivity({ activityId: item.id }))}>
-                                    <div className='activity-name' data-cy='activity-item-title'>{item.title}</div>
-                                    <div className='activity-footer'>
-                                        <span data-cy='activity-item-date' className='activity-date'>{convertDateToString(item.created_at)}</span>
-                                        <span data-cy='activity-item-delete-button' className='trash' onClick={e => openDeleteModal(e, item.title, item.id)}></span>
-                                    </div>
+                        <Link to={`/detail/${item.id}`} key={i}>
+                            <div data-cy='activity-item' className='activity' onClick={() => dispatch(getActivity({ activityId: item.id }))}>
+                                <div data-cy='activity-item-title' className='activity-name'>{item.title}</div>
+                                <div className='activity-footer'>
+                                    <span data-cy='activity-item-date' className='activity-date'>{convertDateToString(item.created_at)}</span>
+                                    <span data-cy='activity-item-delete-button' className='trash' onClick={e => openDeleteModal(e, item.title, item.id)}></span>
                                 </div>
-                            </Link>
-                        </div>
+                            </div>
+                        </Link>
                     )
                     : <div data-cy='activity-empty-state' className='activity-empty-state'>
                         <img src={ActivityEmptyStateSvg} onClick={addNewActivity} alt="Activity Empty" />

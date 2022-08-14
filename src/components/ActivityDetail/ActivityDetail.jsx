@@ -140,7 +140,7 @@ const ActivityDetail = () => {
                                 </div>
                                 {sortType === 'latest' && <span className='check'></span>}
                             </div>
-                            <div data-cy='sort-oldest' className="sort-option" onClick={() => setSortType('oldest')}>
+                            <div data-cy='sort-selection' className="sort-option" onClick={() => setSortType('oldest')}>
                                 <div>
                                     <span className="oldest"></span>
                                     <span>Terlama</span>
