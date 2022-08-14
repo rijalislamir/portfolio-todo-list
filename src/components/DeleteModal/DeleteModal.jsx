@@ -30,7 +30,7 @@ const DeleteModal = props => {
     return (
         <>
             {show &&
-                <div className='backdrop' onClick={onClose}>
+                <div data-cy='activity-item-delete-button' className='backdrop' onClick={onClose}>
                     {!isDelete
                         ? <div className='modal activity-modal' onClick={e => e.stopPropagation()}>
                             <div className="modal-header">
@@ -40,11 +40,11 @@ const DeleteModal = props => {
                                 Apakah anda yakin menghapus {type} <br/><b>"{name}"?</b>
                             </div>
                             <div className="modal-footer">
-                                <button className='cancel' onClick={onClose}>Batal</button>
-                                <button className='delete' onClick={() => onDelete(id)}>Hapus</button>
+                                <button data-cy='modal-delete-cancel-button' className='cancel' onClick={onClose}>Batal</button>
+                                <button className='delete' onClick={() => onDelete(id)} data-cy='activity-item-delete-button modal-delete-confirm-button'>Hapus</button>
                             </div>
                         </div>
-                        : <div className='snackbar'>
+                        : <div className='snackbar' data-cy='modal-information'>
                             <span className='alert'></span>
                             <p>{type[0].toUpperCase() + type.slice(1)} berhasil dihapus</p>
                         </div> 

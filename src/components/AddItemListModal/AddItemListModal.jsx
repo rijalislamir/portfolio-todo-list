@@ -75,7 +75,7 @@ const AddItemListModal = props => {
 
                     <div className="modal-body">
                         <label htmlFor="add-item-list-name">NAMA LIST ITEM</label>
-                        <input type="text" id="add-item-list-name" className="item-list-name" placeholder='Tambahkan nama list item' onChange={handleOnchangeItemListName} autoComplete='off' />
+                        <input data-cy='modal-add-name-input' type="text" id="add-item-list-name" className="item-list-name" placeholder='Tambahkan nama list item' onChange={handleOnchangeItemListName} autoComplete='off' />
                         
                         <label>PRIORITY</label>
                         <div className="priority-container">
@@ -105,7 +105,7 @@ const AddItemListModal = props => {
                                     </span>
                                     <span className={priority === 'high' ? 'check' : ''}></span>
                                 </div>
-                                <div className="priority-option" onClick={() => handleClickPriorityOption('normal')}>
+                                <div data-cy='modal-add-priority-dropdown' className="priority-option" onClick={() => handleClickPriorityOption('normal')}>
                                     <span className='priority-group'>    
                                         <span className='priority-indicator normal'></span>
                                         <span>Medium</span>
@@ -131,7 +131,7 @@ const AddItemListModal = props => {
                     </div>
 
                     <div className="modal-footer">
-                        <button className='save' disabled={(itemListName === "") ? true : false} onClick={handleClickSaveButton}>Simpan</button>
+                        <button data-cy='modal-add-save-button' className='save' disabled={(itemListName === "") ? true : false} onClick={handleClickSaveButton}>Simpan</button>
                     </div>
                 </div>
             </div>

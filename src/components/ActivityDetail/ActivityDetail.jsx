@@ -130,7 +130,7 @@ const ActivityDetail = () => {
                 </div>
 
                 <div className='item-list-option'>
-                    {itemList.length !== 0 && <span ref={sortButtonRef} className='sort' onClick={openSortOptions}></span>}
+                    {itemList.length !== 0 && <span data-cy='todo-sort-button' ref={sortButtonRef} className='sort' onClick={openSortOptions}></span>}
                     {showSortOption &&
                         <div className='sort-options' ref={sortOptionsRef}>
                             <div className="sort-option" onClick={() => setSortType('latest')}>
@@ -140,21 +140,21 @@ const ActivityDetail = () => {
                                 </div>
                                 {sortType === 'latest' && <span className='check'></span>}
                             </div>
-                            <div className="sort-option" onClick={() => setSortType('oldest')}>
+                            <div data-cy='sort-selection' className="sort-option" onClick={() => setSortType('oldest')}>
                                 <div>
                                     <span className="oldest"></span>
                                     <span>Terlama</span>
                                 </div>
                                 {sortType === 'oldest' && <span className='check'></span>}
                             </div>
-                            <div className="sort-option" onClick={() => setSortType('a-z')}>
+                            <div data-cy='todo-sort-button' className="sort-option" onClick={() => setSortType('a-z')}>
                                 <div>
                                     <span className="a-z"></span>
                                     <span>A-Z</span>
                                 </div>
                                 {sortType === 'a-z' && <span className='check'></span>}
                             </div>
-                            <div className="sort-option" onClick={() => setSortType('z-a')}>
+                            <div data-cy='todo-sort-button' className="sort-option" onClick={() => setSortType('z-a')}>
                                 <div>
                                     <span className="z-a"></span>
                                     <span>Z-A</span>
@@ -178,12 +178,12 @@ const ActivityDetail = () => {
                 {itemList.length
                     ? itemList.sort(comparator).map((item, i) => <div key={i} className='item-list'>
                         <div className='item-list-edit'>
-                            <input type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: !item.is_active }))}/>
+                            <input data-cy='todo-item-checkbox' type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: !item.is_active }))}/>
                             <span className={'priority-indicator ' + item.priority}></span>
                             <h1 className={item.is_active ? 'line-through' : ''}>{item.title}</h1>
                             <span className="edit" onClick={() => openEditModal(item.id, item.title, item.priority)}></span>
                         </div>
-                        <span className="trash" onClick={() => openDeleteModal(item.title, item.id)}></span>
+                        <span className="trash" onClick={() => openDeleteModal(item.title, item.id)} data-cy='todo-item-delete-button'></span>
                     </div>)
                     : <div className='item-list-empty-state'>
                         <img src={ItemListEmptyStateSvg} onClick={() => setShowAddModal(true)} alt="Item List Empty" />

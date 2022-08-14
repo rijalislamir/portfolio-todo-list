@@ -72,8 +72,8 @@ const ActivityList = () => {
                             <div className='activity' onClick={() => dispatch(getActivity({ activityId: item.id }))}>
                                 <div className='activity-name' data-cy='activity-title'>{item.title}</div>
                                 <div className='activity-footer'>
-                                    <span className='activity-date'>{convertDateToString(item.created_at)}</span>
-                                    <span className='trash' onClick={e => openDeleteModal(e, item.title, item.id)}></span>
+                                    <span className='activity-date' data-cy='activity-item-date'>{convertDateToString(item.created_at)}</span>
+                                    <span data-cy='activity-item-delete-button' className='trash' onClick={e => openDeleteModal(e, item.title, item.id)}></span>
                                 </div>
                             </div>
                         </Link>
