@@ -47,8 +47,6 @@ main {
     width: 90%;
 }
 
-/* ================================= */
-
 .activities-container {
     display: flex;
     flex-wrap: wrap;

@@ -5,11 +5,14 @@ import './ActivityDetail.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { addListItem, deleteListItem } from '../../features/listItem/listItemSlice'
 import { updateActivity } from '../../features/activity/activitySlice'
+import AddItemListModal from '../AddItemListModal/AddItemListModal'
 
 const ActivityDetail = () => {
     const listItem = useSelector(state => state.listItem.all)
     const activeActivity = useSelector(state => state.activity.active)
     const dispatch = useDispatch()
+
+    const [showAddModal, setShowAddModal] = useState(false)
 
     const [edit, setEdit] = useState(false)
     const inputRef = useRef(null)
@@ -24,10 +27,6 @@ const ActivityDetail = () => {
         if (inputRef.current !== null && !inputRef.current.contains(e.target)) {
             toggleEdit()
         }
-    }
-
-    const addNewItemList = () => {
-        console.log('Adding new item list...')
     }
 
     const toggleEdit = () => {
@@ -56,7 +55,7 @@ const ActivityDetail = () => {
 
                 <div className='item-list-option'>
                     {listItem.length !== 0 && <span className='sort'></span>}
-                    <button onClick={addNewItemList}><span className='plus'></span> Tambah</button>
+                    <button onClick={() => setShowAddModal(true)}><span className='plus'></span> Tambah</button>
                 </div>
             </div>
 
@@ -64,10 +63,15 @@ const ActivityDetail = () => {
                 {listItem.length
                     ? null
                     : <div className='item-list-empty-state'>
-                        <img src={ItemListEmptyStateSvg} onClick={addNewItemList} alt="Item List Empty" />
+                        <img src={ItemListEmptyStateSvg} onClick={() => setShowAddModal(true)} alt="Item List Empty" />
                     </div>
                 }
             </div>
+
+            <AddItemListModal
+                show={showAddModal}
+                onClose={() => setShowAddModal(false)}
+            />
         </main>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import ActivityDetail from '../components/ActivityDetail/ActivityDetail'
 import Header from '../components/Header/Header'
 
-const Activity = () => {
+const Detail = () => {
     return (
         <>
             <Header />
@@ -11,4 +11,4 @@ const Activity = () => {
     )
 }
 
-export default Activity
+export default Detail
