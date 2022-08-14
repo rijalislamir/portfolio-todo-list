@@ -87,46 +87,47 @@ const AddItemListModal = props => {
                                         <span className='chevron-down'></span>
                                     </>
                                 }
+                                {showPriorityOptions &&
+                                // <div className="priority-options" >
+                                <>
+                                    <div data-cy='modal-add-priority-very-high' className="priority-option" onClick={() => handleClickPriorityOption('very-high')}>
+                                        <span className='priority-group'>
+                                            <span className='priority-indicator very-high'></span>
+                                            <span>Very High</span>
+                                        </span>
+                                        <span className={priority === 'very-high' ? 'check' : ''}></span>
+                                    </div>
+                                    <div data-cy='modal-add-priority-high' className="priority-option" onClick={() => handleClickPriorityOption('high')}>
+                                        <span className='priority-group'>
+                                            <span className='priority-indicator high'></span>
+                                            <span>High</span>
+                                        </span>
+                                        <span className={priority === 'high' ? 'check' : ''}></span>
+                                    </div>
+                                    <div data-cy='modal-add-priority-medium' className="priority-option" onClick={() => handleClickPriorityOption('normal')}>
+                                        <span className='priority-group'>    
+                                            <span className='priority-indicator normal'></span>
+                                            <span>Medium</span>
+                                        </span>
+                                        <span className={priority === 'normal' ? 'check' : ''}></span>
+                                    </div>
+                                    <div data-cy='modal-add-priority-low' className="priority-option" onClick={() => handleClickPriorityOption('low')}>
+                                        <span className='priority-group'>    
+                                            <span className='priority-indicator low'></span>
+                                            <span>Low</span>
+                                        </span>
+                                        <span className={priority === 'low' ? 'check' : ''}></span>
+                                    </div>
+                                    <div data-cy='modal-add-priority-very-low' className="priority-option" onClick={() => handleClickPriorityOption('very-low')}>
+                                        <span className='priority-group'>
+                                            <span className='priority-indicator very-low'></span>
+                                            <span>Very low</span>
+                                        </span>
+                                        <span className={priority === 'very-low' ? 'check' : ''}></span>
+                                    </div>
+                                {/* </div> */}
+                                </>}
                             </div>
-
-                            {showPriorityOptions &&
-                            <div className="priority-options" >
-                                <div data-cy='modal-add-priority-item' className="priority-option" onClick={() => handleClickPriorityOption('very-high')}>
-                                    <span className='priority-group'>
-                                        <span className='priority-indicator very-high'></span>
-                                        <span>Very High</span>
-                                    </span>
-                                    <span className={priority === 'very-high' ? 'check' : ''}></span>
-                                </div>
-                                <div data-cy='modal-add-priority-item' className="priority-option" onClick={() => handleClickPriorityOption('high')}>
-                                    <span className='priority-group'>
-                                        <span className='priority-indicator high'></span>
-                                        <span>High</span>
-                                    </span>
-                                    <span className={priority === 'high' ? 'check' : ''}></span>
-                                </div>
-                                <div data-cy='modal-add-priority-item' className="priority-option" onClick={() => handleClickPriorityOption('normal')}>
-                                    <span className='priority-group'>    
-                                        <span className='priority-indicator normal'></span>
-                                        <span>Medium</span>
-                                    </span>
-                                    <span className={priority === 'normal' ? 'check' : ''}></span>
-                                </div>
-                                <div data-cy='modal-add-priority-item' className="priority-option" onClick={() => handleClickPriorityOption('low')}>
-                                    <span className='priority-group'>    
-                                        <span className='priority-indicator low'></span>
-                                        <span>Low</span>
-                                    </span>
-                                    <span className={priority === 'low' ? 'check' : ''}></span>
-                                </div>
-                                <div data-cy='modal-add-priority-item' className="priority-option" onClick={() => handleClickPriorityOption('very-low')}>
-                                    <span className='priority-group'>
-                                        <span className='priority-indicator very-low'></span>
-                                        <span>Very low</span>
-                                    </span>
-                                    <span className={priority === 'very-low' ? 'check' : ''}></span>
-                                </div>
-                            </div>}
                         </div>
                     </div>
 
