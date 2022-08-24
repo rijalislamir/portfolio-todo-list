@@ -92,7 +92,7 @@ const ActivityDetail = () => {
             if (a.title < b.title) return 1
             return 0
         }
-        if (sortType === 'not-done') return (a.is_active === b.is_active) ? 1 : -1
+        if (sortType === 'not-done') return (a.is_active === b.is_active) ? 0 : (a.is_active ? 1 : -1)
     }
 
     const openEditModal = (id, title, priority) => {
