@@ -137,36 +137,36 @@ const ActivityDetail = () => {
                 <div className='item-list-option'>
                     {itemList.length !== 0 && <span data-cy='todo-sort-button' ref={sortButtonRef} className='sort' onClick={openSortOptions}></span>}
                     {showSortOption &&
-                        <div data-cy='sort-selection' className='sort-options' ref={sortOptionsRef}>
-                            <div data-cy='sort-latest' className="sort-option" onClick={() => setSortType('latest')}>
+                        <div className='sort-options' ref={sortOptionsRef}>
+                            <div data-cy='sort-selection' className="sort-option" onClick={() => setSortType('latest')}>
                                 <div>
                                     <span className="latest"></span>
                                     <span>Terbaru</span>
                                 </div>
                                 {sortType === 'latest' && <span className='check'></span>}
                             </div>
-                            <div data-cy='sort-oldest' className="sort-option" onClick={() => setSortType('oldest')}>
+                            <div data-cy='sort-selection' className="sort-option" onClick={() => setSortType('oldest')}>
                                 <div>
                                     <span className="oldest"></span>
                                     <span>Terlama</span>
                                 </div>
                                 {sortType === 'oldest' && <span className='check'></span>}
                             </div>
-                            <div data-cy='sort-az' className="sort-option" onClick={() => setSortType('a-z')}>
+                            <div data-cy='sort-selection' className="sort-option" onClick={() => setSortType('a-z')}>
                                 <div>
                                     <span className="a-z"></span>
                                     <span>A-Z</span>
                                 </div>
                                 {sortType === 'a-z' && <span className='check'></span>}
                             </div>
-                            <div data-cy='sort-za' className="sort-option" onClick={() => setSortType('z-a')}>
+                            <div data-cy='sort-selection' className="sort-option" onClick={() => setSortType('z-a')}>
                                 <div>
                                     <span className="z-a"></span>
                                     <span>Z-A</span>
                                 </div>
                                 {sortType === 'z-a' && <span className='check'></span>}
                             </div>
-                            <div data-cy='sort-unfinished' className="sort-option" onClick={() => setSortType('not-done')}>
+                            <div data-cy='sort-selection' className="sort-option" onClick={() => setSortType('not-done')}>
                                 <div>
                                     <span className="not-done"></span>
                                     <span>Belum Selesai</span>
