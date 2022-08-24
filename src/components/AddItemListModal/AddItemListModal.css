@@ -172,5 +172,5 @@
 
 .save:disabled {
     cursor: not-allowed;
-    opacity: .2;
+    opacity: .65;
 }

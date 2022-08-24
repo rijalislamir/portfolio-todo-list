@@ -39,6 +39,7 @@ const AddItemListModal = props => {
         dispatch(createItemList({ activity_group_id: activityId, title: itemListName, is_active: false, priority: priority === 'medium' ? 'normal' : priority }))
         setPriority("very-high")
         setPriorityIndicator("very-high")
+        setItemListName("")
         onClose()
     }
 

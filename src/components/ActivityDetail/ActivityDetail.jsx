@@ -80,7 +80,6 @@ const ActivityDetail = () => {
     }
 
     const comparator = (a, b) => {
-        console.log(sortType)
         if (sortType === 'latest') return b.id - a.id
         if (sortType === 'oldest') return a.id - b.id
         if (sortType === 'a-z') {
@@ -108,14 +107,6 @@ const ActivityDetail = () => {
 
     const handleCloseDeleteModal = () => {
         setShowDeleteModal(false)
-    }
-
-    const unfinished = item => {
-        if (sortType === 'not-done') {
-            if (!item.is_active) return item
-        } else {
-            return item
-        }
     }
 
     return (
