@@ -137,7 +137,7 @@ const EditItemListModal = props => {
                     </div>
                     
                     <div className="modal-footer">
-                        <button className='save' disabled={(editItemListName === "") ? true : false} onClick={handleClickSaveButton}>Simpan</button>
+                        <button data-cy='modal-add-save-button' className='save' disabled={(editItemListName === "") ? true : false} onClick={handleClickSaveButton}>Simpan</button>
                     </div>
                 </div>
             </div>
