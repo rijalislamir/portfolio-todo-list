@@ -110,7 +110,7 @@ const ActivityDetail = () => {
     }
 
     const handleToggleDone = item => {
-        dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: !item.is_active }))
+        dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: item.is_active === 1 ? 0 : 1 }))
     }
 
     return (
@@ -178,9 +178,9 @@ const ActivityDetail = () => {
                 {itemList.length
                     ? itemList.sort(comparator).map((item, i) => <div data-cy='todo-item' key={i} className='item-list'>
                         <div className='item-list-edit'>
-                            <input data-cy='todo-item-checkbox' type="checkbox" className='done' checked={item.is_active ? false : true} onChange={() => handleToggleDone(item)}/>
+                            <input data-cy='todo-item-checkbox' type="checkbox" className='done' checked={item.is_active === 1 ? 0 : 1} onChange={() => handleToggleDone(item)}/>
                             <span data-cy='todo-item-priority-indicator' className={'priority-indicator ' + item.priority}></span>
-                            <h1 data-cy='todo-item-title' className={item.is_active ? 'line-through' : ''}>{item.title}</h1>
+                            <h1 data-cy='todo-item-title' className={item.is_active === 1 ? '' : 'line-through'}>{item.title}</h1>
                             <span data-cy='todo-item-edit-button' className="edit" onClick={() => openEditModal(item.id, item.title, item.priority)}></span>
                         </div>
                         <span data-cy='todo-item-delete-button' className="trash" onClick={() => openDeleteModal(item.title, item.id)}></span>
