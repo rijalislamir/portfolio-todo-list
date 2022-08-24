@@ -111,6 +111,7 @@ const ActivityDetail = () => {
 
     const handleToggleDone = item => {
         dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: item.is_active === 1 ? 0 : 1 }))
+        dispatch(getActivity({ activityId: location.pathname.split('/').pop() }))
     }
 
     return (
