@@ -113,6 +113,21 @@ const ActivityDetail = () => {
     // const handleToggleDone = item => {
     //     dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: item.is_active === 1 ? 0 : 1 }))
     // }
+
+    const getData = async (activityId) => {
+        try {
+            dispatch(getActivity({ activityId }))
+        //   const response = await axios.get(
+        //     `https://todo.api.devcode.gethired.id/activity-groups/${idActivity}`
+        //   );
+        //   if (response) {
+        //     setTitle(response.data.title);
+        //     setListItem(response.data.todo_items);
+        //   }
+        } catch (err) {
+          console.log(err);
+        }
+    };
     
     const handleToggleDone = async (item) => {
         const payload = {
@@ -127,7 +142,7 @@ const ActivityDetail = () => {
                 )
                 
             if (response) {
-                dispatch(getActivity({ activityId: location.pathname.split('/').pop() }))
+                getData( location.pathname.split('/').pop() )
             }
         } catch (err) {
             console.log(err)
