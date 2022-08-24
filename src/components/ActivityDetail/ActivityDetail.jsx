@@ -178,7 +178,7 @@ const ActivityDetail = () => {
                 {itemList.length
                     ? itemList.sort(comparator).map((item, i) => <div data-cy='todo-item' key={i} className='item-list'>
                         <div className='item-list-edit'>
-                            <input data-cy='todo-item-checkbox' type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => handleToggleDone(item)}/>
+                            <input data-cy='todo-item-checkbox' type="checkbox" className='done' checked={item.is_active ? false : true} onChange={() => handleToggleDone(item)}/>
                             <span data-cy='todo-item-priority-indicator' className={'priority-indicator ' + item.priority}></span>
                             <h1 data-cy='todo-item-title' className={item.is_active ? 'line-through' : ''}>{item.title}</h1>
                             <span data-cy='todo-item-edit-button' className="edit" onClick={() => openEditModal(item.id, item.title, item.priority)}></span>
