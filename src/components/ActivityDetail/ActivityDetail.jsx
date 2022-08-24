@@ -8,7 +8,6 @@ import { deleteItemList, updateItemList } from '../../features/itemList/itemList
 import AddItemListModal from '../AddItemListModal/AddItemListModal'
 import EditItemListModal from '../EditItemListModal/EditItemListModal'
 import DeleteModal from '../DeleteModal/DeleteModal'
-import axios from 'axios'
 
 const ActivityDetail = () => {
     const activeActivity = useSelector(state => state.activity.active)
@@ -110,43 +109,8 @@ const ActivityDetail = () => {
         setShowDeleteModal(false)
     }
 
-    // const handleToggleDone = item => {
-    //     dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: item.is_active === 1 ? 0 : 1 }))
-    // }
-
-    const getData = async (activityId) => {
-        try {
-            dispatch(getActivity({ activityId }))
-        //   const response = await axios.get(
-        //     `https://todo.api.devcode.gethired.id/activity-groups/${idActivity}`
-        //   );
-        //   if (response) {
-        //     setTitle(response.data.title);
-        //     setListItem(response.data.todo_items);
-        //   }
-        } catch (err) {
-          console.log(err);
-        }
-    };
-    
-    const handleToggleDone = async (item) => {
-        const payload = {
-            ...item,
-            is_active: !item.is_active,
-        }
-        
-        try {
-            const response = await axios.patch(
-                `https://todo.api.devcode.gethired.id/todo-items/${item.id}`,
-                payload
-                )
-                
-            if (response) {
-                getData( location.pathname.split('/').pop() )
-            }
-        } catch (err) {
-            console.log(err)
-        }
+    const handleToggleDone = item => {
+        dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: item.is_active === 1 ? 0 : 1 }))
     }
 
     return (

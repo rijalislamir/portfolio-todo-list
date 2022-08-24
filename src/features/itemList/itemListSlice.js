@@ -24,6 +24,7 @@ export const updateItemList = createAsyncThunk(
     async (props, thunkAPI) => {
         try {
             const { itemListId, activityId } = props
+            props.is_active = 0
             
             const response = await axios.patch(`https://todo.api.devcode.gethired.id/todo-items/${itemListId}`, props)
             
