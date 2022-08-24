@@ -84,8 +84,8 @@ const EditItemListModal = props => {
                         <input data-cy='modal-add-name-input' type="text" id="edit-item-list-name" className="item-list-name" value={editItemListName || ''} onChange={handleOnchange} placeholder='Tambahkan nama list item' autoComplete='off' />
                         
                         <label data-cy='modal-add-priority-title'>PRIORITY</label>
-                        <div data-cy='modal-add-priority-dropdown' className="priority-container">
-                            <div className={showPriorityOptions ? 'priority priority-open' : 'priority'} onClick={openPriorityOptions}>
+                        <div className="priority-container">
+                            <div data-cy='modal-add-priority-dropdown' className={showPriorityOptions ? 'priority priority-open' : 'priority'} onClick={openPriorityOptions}>
                                 {showPriorityOptions
                                     ? <><span>Pilih priority</span><span className='chevron-up'></span></>
                                     : <>
