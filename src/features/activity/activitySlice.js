@@ -5,7 +5,7 @@ export const getActivities = createAsyncThunk(
     "activity/getActivities", 
     async () => {
         try {
-            const response = await axios.get("https://todo.api.devcode.gethired.id/activity-groups?email=yoga%2B1%40skyshi.io")
+            const response = await axios.get("https://todo.api.devcode.gethired.id/activity-groups?email=rijal%2B1%40skyshi.io")
             return response.data
         } catch (error) {
             console.error(error)
@@ -32,7 +32,7 @@ export const createActivity = createAsyncThunk(
         try {
             const data = {
                 title: 'New Activity',
-                email: 'yoga+1@skyshi.io'
+                email: 'rijal+1@skyshi.io'
             }
 
             const response = await axios.post(`https://todo.api.devcode.gethired.id/activity-groups`, data)
