@@ -109,6 +109,10 @@ const ActivityDetail = () => {
         setShowDeleteModal(false)
     }
 
+    const handleToggleDone = item => {
+        dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: !item.is_active }))
+    }
+
     return (
         <main>
             <div className='activity-detail-header'>
@@ -174,7 +178,7 @@ const ActivityDetail = () => {
                 {itemList.length
                     ? itemList.sort(comparator).map((item, i) => <div data-cy='todo-item' key={i} className='item-list'>
                         <div className='item-list-edit'>
-                            <input data-cy='todo-item-checkbox' type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => dispatch(updateItemList({ itemListId: item.id, activityId: item.activity_group_id, is_active: !item.is_active }))}/>
+                            <input data-cy='todo-item-checkbox' type="checkbox" className='done' checked={item.is_active ? true : false} onChange={() => handleToggleDone(item)}/>
                             <span data-cy='todo-item-priority-indicator' className={'priority-indicator ' + item.priority}></span>
                             <h1 data-cy='todo-item-title' className={item.is_active ? 'line-through' : ''}>{item.title}</h1>
                             <span data-cy='todo-item-edit-button' className="edit" onClick={() => openEditModal(item.id, item.title, item.priority)}></span>
