@@ -70,7 +70,7 @@ const AddItemListModal = props => {
                 <div data-cy='modal-add' className="modal add-item-list-modal" onClick={handleClickModal}>
                     <div className="modal-header">
                         <span data-cy='modal-add-title'>Tambah List Item</span>
-                        <span  data-cy='modal-add-close-button' className='exit' onClick={handleClose}></span>
+                        <span data-cy='modal-add-close-button' className='exit' onClick={handleClose}></span>
                     </div>
 
                     <div className="modal-body">

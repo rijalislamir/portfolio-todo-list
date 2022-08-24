@@ -73,10 +73,10 @@ const EditItemListModal = props => {
         <>
             {show && priority && 
             <div className='backdrop' data-cy='backdrop' onClick={handleClose}>
-                <div className="modal edit-item-list-modal" data-cy='edit-item-list-modal'  onClick={handleClickModal}>
+                <div data-cy='modal-add' className="modal edit-item-list-modal" onClick={handleClickModal}>
                     <div className="modal-header" data-cy='modal-header'>
-                        <span>Edit List Item</span>
-                        <span className='exit' onClick={handleClose}></span>
+                        <span data-cy='modal-add-title'>Edit List Item</span>
+                        <span data-cy='modal-add-close-button' className='exit' onClick={handleClose}></span>
                     </div>
 
                     <div className="modal-body">
